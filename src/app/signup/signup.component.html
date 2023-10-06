@@ -1,6 +1,9 @@
-<div class="d-flex justify-content-center align-items-center bg-light vh-100">
+<div class="d-flex justify-content-center align-items-center bg-light">
   <div class="bg-light p-3 rounded w-25">
-    <h2>Đăng ký</h2>
+    <h2 class="text-center">Đăng ký</h2>
+    <div class="brand text-center mb-3">
+      <a href="/"><img class="w-50" src="assets/img/logo.png" /></a>
+    </div>
     <form (ngSubmit)="(register)" [formGroup]="form">
       <div class="mb-3">
         <label for="email"><strong>Name</strong></label>

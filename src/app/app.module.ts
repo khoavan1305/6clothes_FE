@@ -13,9 +13,13 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule  } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ForGetPasswordComponent } from './for-get-password/for-get-password.component';
+import { GetPassComponent } from './get-pass/get-pass.component';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +32,9 @@ import { HttpClientModule } from '@angular/common/http';
     DetailComponent,
     SigninComponent,
     SignupComponent,
-    UserdetailComponent
+    UserdetailComponent,
+    ForGetPasswordComponent,
+    GetPassComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +42,10 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot(), // ToastrModule added
+    BrowserAnimationsModule, 
+
   ],
   providers: [],
   bootstrap: [AppComponent]

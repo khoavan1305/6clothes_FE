@@ -53,7 +53,6 @@ export class SignupComponent implements OnInit  {
     };
     this.http.post("http://127.0.0.1:8000/api/user",bodyData).subscribe((resultData: any)=>
     {
-      console.log(resultData);
         if(resultData["code"] === 401){
           // console.log(resultData);
           alert(resultData["messeage"]);

@@ -19,7 +19,7 @@ export class ShopComponent implements OnInit {
     this.getAllProduct()
     this.getItems();
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   getAllProduct() {
     this.http
       .get('http://127.0.0.1:8000/api/product/')
@@ -39,10 +39,9 @@ export class ShopComponent implements OnInit {
     this.http
       .get('http://127.0.0.1:8000/api/product/' + id)
       .subscribe((resultData: any) => {
-        // console.log(resultData);
         this.ProductArray = resultData;
         localStorage.setItem('productdt', resultData['data']['id']);
-        this.router.navigate(['detail/' + id]);
+        this.router.navigate(['detail']);
       });
   }
   nam: boolean = false;
@@ -90,17 +89,14 @@ export class ShopComponent implements OnInit {
         });
     }
   }
-  // var index = this.ICart.findIndex(ICart => ICart.id == resultData['data']['id'])
-  // if(index>=0){
-  //   this.ICart[index].
-  // }
   items: ICart[] = [];
 
   addToCart(id: string) {
+    // this.getItems();
+    // console.log(this.getItems());  
     this.http
       .get('http://127.0.0.1:8000/api/product/' + id)
       .subscribe((resultData: any) => {
-        // console.log((resultData['data']['id']));
         var index = this.items.findIndex(
           (item) => item.id == resultData['data']['id']
         );
@@ -116,15 +112,25 @@ export class ShopComponent implements OnInit {
             quantity: 1,
           };
           this.items.push(c);
+          // console.log(  this.items);
         }
+        // if(sessionStorage.getItem('items') !== null){
+        //   sessionStorage.setItem('items',JSON.stringify( this.items ));
+        // }else{
+
+     
+        sessionStorage.setItem('items', JSON.stringify(this.items));
+
+        // }
+
       });
   }
   getItems() {
-    console.log(this.items);
     return this.items;
   }
   clearCart() {
-    this.items = [];
+    sessionStorage.removeItem('items')
+    // this.items = [];
     return this.items;
   }
 }

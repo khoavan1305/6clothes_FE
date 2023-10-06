@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
       this.router.navigate(['']);
       alert('Đăng Xuất Thành Công');
     }else{
-      this.router.navigate(['']);
       alert('Đăng Xuất Thất Bại');
     }
   }

@@ -1,6 +1,9 @@
-<div class="d-flex justify-content-center align-items-center bg-light vh-100">
+<div class="d-flex justify-content-center align-items-center bg-light vh-10">
   <div class="bg-light p-3 rounded w-25">
-    <h2>Đăng nhập</h2>
+    <h2 class="text-center">Đăng nhập</h2>
+    <div class="brand text-center mb-3">
+      <a href="/"><img class="w-50" src="assets/img/logo.png" /></a>
+    </div>
     <form>
       <div class="mb-3">
         <label for="email"><strong>Email</strong></label>
@@ -26,6 +29,10 @@
           class="form-control rounded-0"
         />
       </div>
+      <div class="text-right">
+        <a routerLink="/forgetpass" class="small"> Bạn quên mật khẩu? </a>
+      </div>
+      <br />
       <button class="btn btn-primary w-100 rounded-0" (click)="login()">
         Đăng nhập
       </button>

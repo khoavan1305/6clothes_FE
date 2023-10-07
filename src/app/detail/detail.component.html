@@ -307,11 +307,13 @@
                   style="width: 45px"
                 />
                 <div class="media-body">
-                  <h6 ngIf="comment['rating']">
+                  <h6>
                     {{ comment["name"]
                     }}<small>
-                      -
-                      <i>{{ comment["created_at"] }}</i></small
+                      <br />
+                      <i>{{
+                        comment["created_at"].slice(0, 10) | uppercase
+                      }}</i></small
                     >
                   </h6>
                   <div
@@ -430,7 +432,16 @@
                     disabled
                   />
                 </div>
-                <div class="form-group mb-0">
+                <div class="form-group mb-0" *ngIf="token == null">
+                  <button
+                    value="Để lại đánh giá"
+                    class="btn btn-primary px-3"
+                    disabled
+                  >
+                    Gừi đánh giá
+                  </button>
+                </div>
+                <div class="form-group mb-0" *ngIf="token != null">
                   <button
                     (click)="onSubmit()"
                     value="Để lại đánh giá"
@@ -474,18 +485,23 @@
           >
             <h6 class="text-truncate mb-3">{{ show["name"] }}</h6>
             <div class="d-flex justify-content-center">
-              <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+              <h6 class="text-muted ml-2">
+                {{ show["price"] | currency : "VND" : "symbol" : "0.3-3" }}
+              </h6>
+              <small class="text-muted ml-2"><del>$123.00</del></small>
             </div>
           </div>
           <div
             class="card-footer d-flex justify-content-between bg-light border"
           >
-            <a href="" class="btn btn-sm text-dark p-0"
-              ><i class="fas fa-eye text-primary mr-1"></i>View Detail</a
+            <a
+              class="btn btn-sm text-dark p-0"
+              (click)="productdetaills(show['id'])"
+              ><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết</a
             >
             <a href="" class="btn btn-sm text-dark p-0"
-              ><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To
-              Cart</a
+              ><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm giỏ
+              hàng</a
             >
           </div>
         </div>

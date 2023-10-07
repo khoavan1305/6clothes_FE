@@ -1,33 +1,20 @@
 <div class="d-flex justify-content-center align-items-center bg-light vh-10">
   <div class="bg-light p-3 rounded w-25">
-    <h2 class="text-center">Đăng nhập</h2>
     <div class="brand text-center mb-3">
-      <a href="/"><img class="w-50" src="assets/img/logo.png" /></a>
+      <a href="/"><img class="w-50" src="assets/img/logo_2.jpg" style="border-radius: 100%;" /></a>
     </div>
+    <h2 class="text-center text-primary">Đăng nhập</h2>
+
     <form>
       <div class="mb-3">
         <label for="email"><strong>Email</strong></label>
-        <input
-          [(ngModel)]="email"
-          [ngModelOptions]="{ standalone: true }"
-          class="form-control"
-          id="email"
-          type="email"
-          placeholder="Nhập Email"
-          class="form-control rounded-0"
-        />
+        <input [(ngModel)]="email" [ngModelOptions]="{ standalone: true }" class="form-control" id="email" type="email"
+          placeholder="Nhập Email" class="form-control rounded-0" />
       </div>
       <div class="mb-3">
         <label for="password"><strong>Mật khẩu</strong></label>
-        <input
-          type="password"
-          [(ngModel)]="password"
-          [ngModelOptions]="{ standalone: true }"
-          class="form-control"
-          id="password"
-          placeholder="Enter password"
-          class="form-control rounded-0"
-        />
+        <input type="password" [(ngModel)]="password" [ngModelOptions]="{ standalone: true }" class="form-control"
+          id="password" placeholder="Enter password" class="form-control rounded-0" />
       </div>
       <div class="text-right">
         <a routerLink="/forgetpass" class="small"> Bạn quên mật khẩu? </a>
@@ -37,10 +24,7 @@
         Đăng nhập
       </button>
       <p></p>
-      <button
-        class="btn btn-default border w-100 bg-secondary rounded-0"
-        routerLink="/signup"
-      >
+      <button class="btn btn-default border w-100 bg-secondary rounded-0" routerLink="/signup">
         Đăng ký?
       </button>
     </form>

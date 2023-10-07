@@ -16,11 +16,14 @@ export class DetailComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router ) 
   {
-
+    if(   this.token = localStorage.getItem('productdt') === null){
+      this.router.navigate(['/']);
+    }else{
     this.productdt =localStorage.getItem('productdt');
     this.token = localStorage.getItem('token');
     this.userdetaill();
     this.productdetaill();
+  }
   }
   ngOnInit(): void {
     this.clickstar();
@@ -33,6 +36,15 @@ export class DetailComponent implements OnInit {
       this.ProductArray = resultData['data'];
       localStorage.setItem('category_id',this.ProductArray["product_category_id"] )
     });
+  }
+  productdetaills(id: string) {
+    this.http
+      .get('http://127.0.0.1:8000/api/product/' + id)
+      .subscribe((resultData: any) => {
+        this.ProductArray = resultData;
+        localStorage.setItem('productdt', resultData['data']['id']);
+        location.reload();
+      });
   }
   token: any = '';
   user: any = "";

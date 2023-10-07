@@ -53,6 +53,7 @@ export class DetailComponent implements OnInit {
       "iduser": this.user['id'],
       "idpro": this.productdt,
       "rating": this.rating,
+      "avatar": this.user['avatar'],
     };
     this.http.post('http://127.0.0.1:8000/api/product_comment',bodyData).subscribe((resultData:any)=>{
       if (resultData["code"] === 409) {
@@ -68,21 +69,18 @@ export class DetailComponent implements OnInit {
   avatars: any[] = [];
   getComment(){
     this.http.get('http://127.0.0.1:8000/api/product_comment/' + this.productdt).subscribe((resultData:any)=>{
-      this.comments = resultData["data"];
-      for(let i = 0;i  <  this.comments.length;i++){
-        this.comments[i]['user_id']; 
-        this.http.get('http://127.0.0.1:8000/api/getUserId/' + this.comments[i]['user_id']).subscribe((resultData:any)=>{
-          // this.comments[i].push();
-          this.avatars.push(resultData['data']);
-        });
-      }
-      console.log(this.avatars);
-    });
-  }
-  getAvatar(id:any){
-    for(let i =0;i< this.avatars.length;i++){
+    this.comments = resultData["data"];
 
-    }
+      // for(let i = 0;i  <  this.comments.length;i++){
+      //   this.comments[i]['user_id']; 
+      //   this.http.get('http://127.0.0.1:8000/api/getUserId/' + this.comments[i]['user_id']).subscribe((resultData:any)=>{
+      //     // this.comments[i].push();
+      //     this.avatars.push(resultData['data']);
+      //   });
+      // }
+      console.log(this.comments); 
+
+    });
   }
   show_category : any= "";
   getProduct(){

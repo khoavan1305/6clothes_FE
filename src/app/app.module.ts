@@ -19,6 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ForGetPasswordComponent } from './for-get-password/for-get-password.component';
 import { GetPassComponent } from './get-pass/get-pass.component';
+import { IntroduceComponent } from './introduce/introduce.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { GetPassComponent } from './get-pass/get-pass.component';
     SignupComponent,
     UserdetailComponent,
     ForGetPasswordComponent,
-    GetPassComponent
+    GetPassComponent,
+    IntroduceComponent
   ],
   imports: [
     BrowserModule,

@@ -18,136 +18,180 @@
 <div class="container-fluid pt-5">
   <div class="row px-xl-5">
     <div class="col-lg-8">
-      <div class="mb-4">
-        <h4 class="font-weight-semi-bold mb-4">Địa chỉ đơn hàng</h4>
-        <div class="row">
-          <div class="col-md-6 form-group">
-            <label>Tên</label>
-            <input class="form-control" type="text" placeholder="Nhập tên" />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Họ</label>
-            <input class="form-control" type="text" placeholder="Nhập họ" />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>E-mail</label>
-            <input class="form-control" type="text" placeholder="Nhập email" />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Số điện thoại</label>
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Nhập số điện thoại"
-            />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Địa chỉ</label>
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Nhập địa chỉ"
-            />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Phường</label>
-            <input class="form-control" type="text" placeholder="Nhập phường" />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Thành phố</label>
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Nhập thành phố"
-            />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Quận, Huyện</label>
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Nhập quận, huyện"
-            />
-          </div>
-          <div class="col-md-12 form-group">
-            <div class="custom-control custom-checkbox">
+      <form #frm2="ngForm">
+        <div class="mb-4">
+          <h4 class="font-weight-semi-bold mb-4">Địa chỉ đơn hàng</h4>
+          <h6 class="text-danger p-3">* là bắt buộc phải nhập</h6>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Tên *</label>
               <input
-                type="checkbox"
-                class="custom-control-input"
-                id="newaccount"
+                [(ngModel)]="ten"
+                required
+                minlength="2"
+                maxlength="10"
+                name="ten"
+                #loiten="ngModel"
+                class="form-control"
+                type="text"
+                placeholder="Nhập tên"
               />
-              <label class="custom-control-label" for="newaccount"
-                >Đặt làm địa chỉ gốc</label
+              <em
+                *ngIf="
+                  loiten.errors?.['minlength'] || loiten.errors?.['maxlength']
+                "
+                class="text-danger"
               >
+                Tên phải từ 2 đến 10 ký tự
+              </em>
             </div>
-          </div>
-          <div class="col-md-12 form-group">
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="shipto" />
-              <label
-                class="custom-control-label"
-                for="shipto"
-                data-toggle="collapse"
-                data-target="#shipping-address"
-                >Vận chuyển vào địa chỉ khác</label
+            <div class="col-md-6 form-group">
+              <label>Họ *</label>
+              <input
+                [(ngModel)]="ho"
+                required
+                minlength="2"
+                maxlength="5"
+                name="ho"
+                #loiho="ngModel"
+                class="form-control"
+                type="text"
+                placeholder="Nhập họ"
+              />
+              <em
+                *ngIf="
+                  loiho.errors?.['minlength'] || loiho.errors?.['maxlength']
+                "
+                class="text-danger"
               >
+                Họ phải từ 2 đến 5 ký tự
+              </em>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>E-mail *</label>
+              <input
+                [(ngModel)]="email"
+                required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                name="email"
+                #loiemail="ngModel"
+                class="form-control"
+                type="text"
+                placeholder="Nhập email"
+              />
+              <em *ngIf="loiemail.errors?.['pattern']" class="text-danger">
+                Email không đúng định dạng, phải có @gmail.com <br />
+                Ví dụ: admin@gmail.com
+              </em>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Số điện thoại *</label>
+              <input
+                [(ngModel)]="sdt"
+                required
+                pattern="((09|03|07|08|05)+([0-9]{8})\b)"
+                name="sdt"
+                #loisdt="ngModel"
+                class="form-control"
+                type="text"
+                placeholder="Nhập số điện thoại"
+              />
+              <em *ngIf="loisdt.errors?.['pattern']" class="text-danger">
+                Số điện thoại không đúng định dạng, phải có 10 số và bắt đầu
+                bằng 09, 03, 07, 08, 05
+              </em>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Địa chỉ *</label>
+              <input
+                [(ngModel)]="diachi"
+                required
+                minlength="10"
+                maxlength="50"
+                name="diachi"
+                #loidc="ngModel"
+                class="form-control"
+                type="text"
+                placeholder="Nhập địa chỉ"
+              />
+              <em
+                *ngIf="
+                  loidc.errors?.['minlength'] || loidc.errors?.['maxlength']
+                "
+                class="text-danger"
+              >
+                Địa chỉ phải từ 10 đến 50 ký tự
+              </em>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Phường *</label>
+              <input
+                [(ngModel)]="phuong"
+                required
+                minlength="2"
+                maxlength="5"
+                name="phuong"
+                #loip="ngModel"
+                class="form-control"
+                type="text"
+                placeholder="Nhập phường"
+              />
+              <em
+                *ngIf="
+                  loip.errors?.['minlength'] || loip.errors?.['maxlength']
+                "
+                class="text-danger"
+              >
+                Phường phải từ 2 đến 5 ký tự
+              </em>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Thành phố *</label>
+              <input
+                [(ngModel)]="thanhpho"
+                required
+                minlength="2"
+                maxlength="5"
+                name="thanhpho"
+                #loitp="ngModel"
+                class="form-control"
+                type="text"
+                placeholder="Nhập thành phố"
+              />
+              <em
+                *ngIf="
+                  loitp.errors?.['minlength'] || loitp.errors?.['maxlength']
+                "
+                class="text-danger"
+              >
+                Thành phố phải từ 2 đến 5 ký tự
+              </em>
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Quận, Huyện *</label>
+              <input
+                [(ngModel)]="quan"
+                required
+                minlength="2"
+                maxlength="5"
+                name="quan"
+                #loiq="ngModel"
+                class="form-control"
+                type="text"
+                placeholder="Nhập quận, huyện"
+              />
+              <em
+                *ngIf="
+                  loiq.errors?.['minlength'] || loiq.errors?.['maxlength']
+                "
+                class="text-danger"
+              >
+                Quận, huyện phải từ 2 đến 5 ký tự
+              </em>
             </div>
           </div>
         </div>
-      </div>
-      <div class="collapse mb-4" id="shipping-address">
-        <h4 class="font-weight-semi-bold mb-4">Địa chỉ vận chuyển</h4>
-        <div class="row">
-          <div class="col-md-6 form-group">
-            <label>Tên</label>
-            <input class="form-control" type="text" placeholder="Nhập tên" />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Họ</label>
-            <input class="form-control" type="text" placeholder="Nhập họ" />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>E-mail</label>
-            <input class="form-control" type="text" placeholder="Nhập email" />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Số điện thoại</label>
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Nhập số điện thoại"
-            />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Địa chỉ</label>
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Nhập địa chỉ"
-            />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Phường</label>
-            <input class="form-control" type="text" placeholder="Nhập phường" />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Thành phố</label>
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Nhập thành phố"
-            />
-          </div>
-          <div class="col-md-6 form-group">
-            <label>Quận, Huyện</label>
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Nhập quận, huyện"
-            />
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
     <div class="col-lg-4">
       <div class="card border-secondary mb-5">

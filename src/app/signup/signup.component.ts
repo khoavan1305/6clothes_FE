@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit  {
-  form!: FormGroup;
   submitted= false;
   token: any;
 
@@ -20,28 +19,23 @@ export class SignupComponent implements OnInit  {
     if ((this.token = localStorage.getItem('token'))) {
       this.router.navigate(['/']);
     }
-    this.form = new FormGroup({
-      name: new FormControl(null,[Validators.required,Validators.maxLength(10),Validators.minLength(3)]),
-      email: new FormControl(null,[Validators.required,Validators.email]),
-      password: new FormControl(null,[Validators.required,Validators.minLength(6)]),
-    });
   }
   UserArray : any[] = [];
   name: string ="";
   email: string ="";
   password: string ="";
+  password_confirm: string ="";
   currentUserID = "";
-  Alluser()
-  { 
-    
-    this.http.get("http://127.0.0.1:8000/api/user")
+  // Alluser()
+  // { 
+  //   this.http.get("http://127.0.0.1:8000/api/user")
   
-    .subscribe((resultData: any)=>
-    {
-        this.UserArray = resultData;
+  //   .subscribe((resultData: any)=>
+  //   {
+  //       this.UserArray = resultData;
 
-    });
-  }
+  //   });
+  // }
   register()
   {
     this.submitted= true;
@@ -50,6 +44,7 @@ export class SignupComponent implements OnInit  {
       "name" : this.name,
       "email" : this.email,
       "password" : this.password,
+      "password_confirm" : this.password_confirm,
     };
     this.http.post("http://127.0.0.1:8000/api/user",bodyData).subscribe((resultData: any)=>
     {

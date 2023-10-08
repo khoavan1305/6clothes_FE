@@ -36,9 +36,10 @@ export class AppComponent implements OnInit {
   }
   logout() {
     if (confirm('Bạn có muốn đăng xuất không?')) {
-      this.router.navigate(['']);
+      this.router.navigate(['/']);
       localStorage.clear();
       alert('Đăng Xuất Thành Công');
+      location.reload();
     }else{
       alert('Đăng Xuất Thất Bại');
     }

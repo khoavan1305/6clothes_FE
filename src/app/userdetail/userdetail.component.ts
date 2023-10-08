@@ -118,6 +118,7 @@ export class UserdetailComponent implements OnInit {
     this.http.post("http://127.0.0.1:8000/api/changeAvatar/" + this.user['id'],formData)
     .subscribe((resultData: any) => {
       if(resultData['status'] = true){
+    console.log(resultData);
           this.toastr.success(JSON.stringify(resultData['Message']),'',{
             timeOut:2000,
             progressBar:true

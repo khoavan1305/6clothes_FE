@@ -46,7 +46,6 @@
           minlength="8"
           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
           #loipw="ngModel"
-          class="form-control rounded-0"
         />
         <div class="table">
           <em *ngIf="loipw.errors?.['pattern']" class="text-danger">

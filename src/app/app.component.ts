@@ -3,6 +3,7 @@ import { Token } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,7 +19,13 @@ export class AppComponent implements OnInit {
   routerlinksignup: any = '';
   logoutuser: any = '';
   currentUserID = '';
-  constructor(private http: HttpClient, private router: Router) {}
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
+
+
   public ngOnInit(): void {
     if ((this.token = localStorage.getItem('token'))) {
       this.userDisplay = 'Xin Chào: ' + localStorage.getItem('loggedUser');
@@ -40,7 +47,7 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/']);
       window.location.reload();
       alert('Đăng Xuất Thành Công');
-    }else{
+    } else {
       alert('Đăng Xuất Thất Bại');
     }
   }

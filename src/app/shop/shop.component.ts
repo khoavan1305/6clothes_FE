@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICart } from '../icart';
 
+import { PaginationService } from '../pagination.service';
+
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
@@ -14,12 +16,41 @@ export class ShopComponent implements OnInit {
   name: string = '';
   key: string = '';
   currentProductID = '';
+  POSTS: any;
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 9;
+  tableSizes = [3, 6, 9, 12];
 
-  constructor(private http: HttpClient, private router: Router) {
-    this.getAllProduct()
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private pagination: PaginationService
+  ) {
+    this.getAllProduct();
     this.getItems();
   }
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.postList();
+  }
+  postList(): void {
+    this.pagination.getAllProduct().subscribe((response) => {
+      this.POSTS = response;
+      console.log(this.POSTS);
+    });
+  }
+
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.postList();
+  }
+
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.postList();
+  }
+
   getAllProduct() {
     this.http
       .get('http://127.0.0.1:8000/api/product/')
@@ -93,7 +124,7 @@ export class ShopComponent implements OnInit {
 
   addToCart(id: string) {
     // this.getItems();
-    // console.log(this.getItems());  
+    // console.log(this.getItems());
     this.http
       .get('http://127.0.0.1:8000/api/product/' + id)
       .subscribe((resultData: any) => {
@@ -118,18 +149,16 @@ export class ShopComponent implements OnInit {
         //   sessionStorage.setItem('items',JSON.stringify( this.items ));
         // }else{
 
-     
         sessionStorage.setItem('items', JSON.stringify(this.items));
 
         // }
-
       });
   }
   getItems() {
     return this.items;
   }
   clearCart() {
-    sessionStorage.removeItem('items')
+    sessionStorage.removeItem('items');
     // this.items = [];
     return this.items;
   }

@@ -12,6 +12,9 @@ import { UserdetailComponent } from './userdetail/userdetail.component';
 import { ForGetPasswordComponent } from './for-get-password/for-get-password.component';
 import { GetPassComponent } from './get-pass/get-pass.component';
 import { IntroduceComponent } from './introduce/introduce.component';
+import { HistoryBuyComponent } from './history-buy/history-buy.component';
+import { SuccessBuyComponent } from './success-buy/success-buy.component';
+import { DetailcheckoutComponent } from './detailcheckout/detailcheckout.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,6 +29,9 @@ const routes: Routes = [
   { path: 'forgetpass', component: ForGetPasswordComponent },
   { path: 'getpass', component: GetPassComponent },
   { path: 'introduce', component: IntroduceComponent },
+  { path: 'history', component: HistoryBuyComponent },
+  { path: 'success', component: SuccessBuyComponent },
+  { path: 'detail-checkout', component: DetailcheckoutComponent },
 ];
 
 @NgModule({

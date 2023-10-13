@@ -20,6 +20,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ForGetPasswordComponent } from './for-get-password/for-get-password.component';
 import { GetPassComponent } from './get-pass/get-pass.component';
 import { IntroduceComponent } from './introduce/introduce.component';
+import { HistoryBuyComponent } from './history-buy/history-buy.component';
+import { SuccessBuyComponent } from './success-buy/success-buy.component';
+import { DetailcheckoutComponent } from './detailcheckout/detailcheckout.component';
 
 
 @NgModule({
@@ -36,7 +39,10 @@ import { IntroduceComponent } from './introduce/introduce.component';
     UserdetailComponent,
     ForGetPasswordComponent,
     GetPassComponent,
-    IntroduceComponent
+    IntroduceComponent,
+    HistoryBuyComponent,
+    SuccessBuyComponent,
+    DetailcheckoutComponent
   ],
   imports: [
     BrowserModule,

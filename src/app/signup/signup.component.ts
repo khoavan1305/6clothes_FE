@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +14,7 @@ export class SignupComponent implements OnInit  {
   submitted= false;
   token: any;
 
-  constructor(private  http: HttpClient,private fbuilder:FormBuilder, private router: Router){
+  constructor(private  http: HttpClient,private fbuilder:FormBuilder, private router: Router,private toastr: ToastrService){
 
   } 
   ngOnInit(): void {
@@ -49,18 +51,24 @@ export class SignupComponent implements OnInit  {
     this.http.post("http://127.0.0.1:8000/api/user",bodyData).subscribe((resultData: any)=>
     {
         if(resultData["code"] === 401){
-          // console.log(resultData);
-          alert(resultData["messeage"]);
+          this.toastr.error(JSON.stringify(resultData['messeage']),'',{
+            timeOut:1000,
+            progressBar:true
+          })
           this.password = '';
         }
         if(resultData["code"] === 409){
-          // console.log(resultData);
-          alert(resultData["messeage"]);
+          this.toastr.error(JSON.stringify(resultData['messeage']),'',{
+            timeOut:1000,
+            progressBar:true
+          })
           this.password = '';
         }
         if(resultData["code"] === 200){
-          // console.log(resultData);
-          alert(resultData["messeage"]);
+          this.toastr.success(JSON.stringify(resultData['messeage']),'',{
+            timeOut:1000,
+            progressBar:true
+          })
           this.name = '';
           this.email = '';
           this.password = '';

@@ -46,16 +46,25 @@ export class UserdetailComponent implements OnInit {
     };
     this.http.put("http://127.0.0.1:8000/api/updatepw/" + this.user['id'], bodyData).subscribe((resultData: any) => {
       if (resultData["code"] === 401) {
-        alert(resultData["Message"]);
+        this.toastr.error(JSON.stringify(resultData['Message']),'',{
+          timeOut:1000,
+          progressBar:true
+        })
       }
       if (resultData["code"] === 409) {
-        alert(resultData["Message"]);
+        this.toastr.error(JSON.stringify(resultData['Message']),'',{
+          timeOut:1000,
+          progressBar:true
+        })
       }
       if (resultData["code"] === 200) {
-        alert(resultData["Message"]);
         this.old_password = '';
         this.new_password = '';
         this.confirm_password = '';
+        this.toastr.success(JSON.stringify(resultData['Message']),'',{
+          timeOut:1000,
+          progressBar:true
+        })
         this.router.navigate(['/userdetaill']);
       }
     });
@@ -68,12 +77,20 @@ export class UserdetailComponent implements OnInit {
     };
     this.http.put("http://127.0.0.1:8000/api/updatettc/" + this.user['id'], bodyData).subscribe((resultData: any) => {
       if (resultData["code"] === 409) {
-        alert(resultData["Message"]);
+        this.toastr.error(JSON.stringify(resultData['Message']),'',{
+          timeOut:1000,
+          progressBar:true
+        })
       }
       if (resultData["code"] === 200) {
-        alert(resultData["Message"]);
         localStorage.setItem('loggedUser',this.name);
-        location.reload();
+        this.toastr.success(JSON.stringify(resultData['Message']),'',{
+          timeOut:1000,
+          progressBar:true
+        })
+        setTimeout(function(){
+          window.location.reload();
+       }, 1000);
         this.router.navigate(['/userdetaill']);
       }
     });
@@ -91,10 +108,19 @@ export class UserdetailComponent implements OnInit {
     };
     this.http.put("http://127.0.0.1:8000/api/updatettcn/" + this.user['id'], bodyData).subscribe((resultData: any) => {
       if (resultData["code"] === 409) {
-        alert(resultData["Message"]);
+        this.toastr.error(JSON.stringify(resultData['Message']),'',{
+          timeOut:1000,
+          progressBar:true
+        })
       }
       if (resultData["code"] === 200) {
-        alert(resultData["Message"]);
+        this.toastr.success(JSON.stringify(resultData['Message']),'',{
+          timeOut:1000,
+          progressBar:true
+        })
+        setTimeout(function(){
+          window.location.reload();
+       }, 1000);
         this.router.navigate(['/userdetaill']);
       }
     });
@@ -118,17 +144,21 @@ export class UserdetailComponent implements OnInit {
     this.http.post("http://127.0.0.1:8000/api/changeAvatar/" + this.user['id'],formData)
     .subscribe((resultData: any) => {
       if(resultData['status'] = true){
-    console.log(resultData);
           this.toastr.success(JSON.stringify(resultData['Message']),'',{
             timeOut:2000,
             progressBar:true
           })
-          location.reload();
+          setTimeout(function(){
+            window.location.reload();
+         }, 2000);
         }else{
           this.toastr.error(JSON.stringify(resultData['Mesage']),'',{
             timeOut:2000,
             progressBar:true
           })
+          setTimeout(function(){
+            window.location.reload();
+         }, 2000);
         }
     });
   }

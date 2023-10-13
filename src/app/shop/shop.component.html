@@ -291,7 +291,7 @@
               </div>
             </div>
             <div
-              class="card-footer d-flex justify-content-between bg-light border"
+              class="card-footer d-flex justify-content-between bg-light border container"
             >
               <a
                 class="btn btn-sm text-dark p-0"
@@ -299,10 +299,25 @@
                 ><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết</a
               >
               <a
+                class="btn btn-sm text-dark p-0 like"
+                style="margin-left: 45px"
+              >
+                <div class="stars" (mouseover)="mouseover()">
+                  <i
+                    (click)="getOneProduct(ProductItem.id)"
+                    class="fa-solid fa-heart fa-2xl btn-outline-danger"
+                    style="color: #d19c97"
+                  ></i>
+                </div>
+              </a>
+              <h1></h1>
+              <a
+                data-toggle="modal"
+                data-target="#modalCart"
                 class="btn btn-sm text-dark p-0"
-                (click)="addToCart(ProductItem.id)"
-                ><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào
-                giỏ hàng</a
+                (click)="productAdd(ProductItem.id)"
+                ><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm giỏ
+                hàng</a
               >
             </div>
           </div>
@@ -335,3 +350,246 @@
   </div>
 </div>
 <!-- Shop End -->
+
+<!-- Modal: modalCart -->
+<div
+  class="modal fade"
+  id="modalCart"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 700px">
+      <!--Header-->
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Chi tiết sản phẩm</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="row">
+        <div class="col-lg-5">
+          <div
+            id="product-carousel"
+            class="carousel slide"
+            data-ride="carousel"
+          >
+            <div class="carousel-inner border">
+              <div class="carousel-item active">
+                <img
+                  style="min-height: 350px; padding: 10px"
+                  class="w-100"
+                  src="assets/img/{{ ProductArrayId['image'] }}"
+                  alt="Image"
+                />
+              </div>
+              <!-- <div class="carousel-item">
+                <img
+                  style="min-height: 350px; padding: 10px"
+                  class="w-100 h-100"
+                  src="assets/img/product-2.jpg"
+                  alt="Image"
+                />
+              </div> -->
+            </div>
+            <a
+              class="carousel-control-prev"
+              href="#product-carousel"
+              data-slide="prev"
+            >
+              <i class="fa fa-2x fa-angle-left text-dark"></i>
+            </a>
+            <a
+              class="carousel-control-next"
+              href="#product-carousel"
+              data-slide="next"
+            >
+              <i class="fa fa-2x fa-angle-right text-dark"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-7 pb-5">
+          <h3 class="font-weight-semi-bold">{{ ProductArrayId["name"] }}</h3>
+          <br />
+          <h3 class="font-weight-semi-bold mb-4">
+            {{
+              ProductArrayId["price"] | currency : "VND" : "symbol" : "0.3-3"
+            }}
+          </h3>
+          <div class="d-flex mb-3">
+            <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
+            <form>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  [(ngModel)]="size"
+                  type="radio"
+                  class="custom-control-input"
+                  id="size-s"
+                  name="size"
+                  value="S"
+                />
+                <label class="custom-control-label" for="size-s">S</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  [(ngModel)]="size"
+                  type="radio"
+                  class="custom-control-input"
+                  id="size-m"
+                  name="size"
+                  value="M"
+                />
+                <label class="custom-control-label" for="size-m">M</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  [(ngModel)]="size"
+                  type="radio"
+                  class="custom-control-input"
+                  id="size-l"
+                  name="size"
+                  value="L"
+                />
+                <label class="custom-control-label" for="size-l">L</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  [(ngModel)]="size"
+                  type="radio"
+                  class="custom-control-input"
+                  id="size-xl"
+                  name="size"
+                  value="XL"
+                />
+                <label class="custom-control-label" for="size-xl">XL</label>
+              </div>
+            </form>
+          </div>
+          <div class="d-flex mb-4">
+            <p class="text-dark font-weight-medium mb-0 mr-3">Màu sắc:</p>
+            <form>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  [(ngModel)]="color"
+                  value="Đen"
+                  type="radio"
+                  class="custom-control-input"
+                  id="color-1"
+                  name="color"
+                />
+                <label class="custom-control-label" for="color-1">Đen</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  [(ngModel)]="color"
+                  value="Trắng"
+                  type="radio"
+                  class="custom-control-input"
+                  id="color-2"
+                  name="color"
+                />
+                <label class="custom-control-label" for="color-2">Trắng</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  [(ngModel)]="color"
+                  value="Đỏ"
+                  type="radio"
+                  class="custom-control-input"
+                  id="color-3"
+                  name="color"
+                />
+                <label class="custom-control-label" for="color-3">Đỏ</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  [(ngModel)]="color"
+                  value="xanh"
+                  type="radio"
+                  class="custom-control-input"
+                  id="color-4"
+                  name="color"
+                />
+                <label class="custom-control-label" for="color-4">Xanh</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  [(ngModel)]="color"
+                  value="Xanh Lá"
+                  type="radio"
+                  class="custom-control-input"
+                  id="color-5"
+                  name="color"
+                />
+                <label class="custom-control-label" for="color-5"
+                  >Xanh lá
+                </label>
+              </div>
+            </form>
+          </div>
+          <div class="d-flex align-items-center mb-4 pt-2">
+            <div class="input-group quantity mr-3" style="width: 130px">
+              <div class="input-group-btn">
+                <button
+                  (click)="minusQuantity()"
+                  class="btn btn-primary btn-minus"
+                >
+                  <i class="fa fa-minus"></i>
+                </button>
+              </div>
+              <input
+                [(ngModel)]="quantity"
+                [ngModelOptions]="{ standalone: true }"
+                type="text"
+                class="form-control bg-secondary text-center"
+                id="quantity"
+                name="quantity"
+              />
+              <div class="input-group-btn">
+                <button
+                  (click)="plusQuantity()"
+                  class="btn btn-primary btn-plus"
+                >
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            <button
+              (click)="addToCart(ProductArrayId['id'])"
+              class="btn btn-primary px-3"
+            >
+              <i class="fa fa-shopping-cart mr-1"></i> Thêm giỏ hàng
+            </button>
+          </div>
+          <div class="d-flex pt-2">
+            <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
+            <div class="d-inline-flex">
+              <a class="text-dark px-2" href="">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a class="text-dark px-2" href="">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a class="text-dark px-2" href="">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a class="text-dark px-2" href="">
+                <i class="fab fa-pinterest"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Footer-->
+    </div>
+  </div>
+</div>
+<!-- Modal: modalCart -->

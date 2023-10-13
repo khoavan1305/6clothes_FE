@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit  {
   ProductArray: any[] = [];
   NewP : any[] = [];
   HotP : any[] = [];
+  itemss:any;
+
 
   constructor(private http: HttpClient, private router: Router ) 
   {
@@ -22,6 +24,8 @@ export class HomeComponent implements OnInit  {
     this.getItems();
   }
   ngOnInit(): void {
+    this.itemss= localStorage.getItem('items');
+    this.items= JSON.parse(this.itemss);
   }
   getNewP()
   { 
@@ -68,6 +72,8 @@ export class HomeComponent implements OnInit  {
             name: resultData['data']['name'],
             price: resultData['data']['price'],
             image: resultData['data']['image'],
+            size: resultData['data']['name'],
+            color: resultData['data']['name'],
             quantity: 1,
           };
           this.items.push(c);
@@ -76,7 +82,7 @@ export class HomeComponent implements OnInit  {
         // if(sessionStorage.getItem('items') !== null){
         //   sessionStorage.setItem('items',JSON.stringify( this.items ));
         // }else{
-        sessionStorage.setItem('items', JSON.stringify(this.items));
+        localStorage.setItem('items', JSON.stringify(this.items));
         // }
 
       });

@@ -41,64 +41,101 @@
         {{ ProductArray["name"] | uppercase }}
       </h3>
       <div class="d-flex mb-3">
-        <div class="text-primary mr-2">
+        <small class="pt-1" *ngIf="review"
+          >Đánh giá ( {{ comments.length }} ) &nbsp;</small
+        >
+        <br />
+        <br />
+        <small class="pt-1" *ngIf="!review">Đánh giá ( 0 ) &nbsp;</small>
+        <br />
+        <div class="text-warning mr-2" *ngIf="review == 1">
           <small class="fas fa-star"></small>
-          <small class="fas fa-star"></small>
-          <small class="fas fa-star"></small>
-          <small class="fas fa-star-half-alt"></small>
-          <small class="far fa-star"></small>
         </div>
-        <small class="pt-1">(50 Reviews)</small>
+        <div class="text-warning mr-2" *ngIf="review == 2">
+          <small class="fas fa-star"></small>
+          <small class="fas fa-star"></small>
+        </div>
+        <div class="text-warning mr-2" *ngIf="review == 3">
+          <small class="fas fa-star"></small>
+          <small class="fas fa-star"></small>
+          <small class="fas fa-star"></small>
+        </div>
+        <div class="text-warning mr-2" *ngIf="review == 4">
+          <small class="fas fa-star"></small>
+          <small class="fas fa-star"></small>
+          <small class="fas fa-star"></small>
+          <small class="fas fa-star"></small>
+        </div>
+        <div class="text-warning mr-2" *ngIf="review == 5">
+          <small class="fas fa-star"></small>
+          <small class="fas fa-star"></small>
+          <small class="fas fa-star"></small>
+          <small class="fas fa-star"></small>
+          <small class="fas fa-star"></small>
+        </div>
       </div>
+      <br />
       <h3 class="font-weight-semi-bold mb-4">
         {{ ProductArray["price"] | currency : "VND" : "symbol" : "0.3-3" }}
       </h3>
+      <br />
       <div class="d-flex mb-3">
         <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
-        <form>
+        <form #frm1="ngForm">
           <div class="custom-control custom-radio custom-control-inline">
             <input
+              [(ngModel)]="size"
               type="radio"
               class="custom-control-input"
-              id="size-2"
+              id="size-s"
               name="size"
+              value="S"
             />
-            <label class="custom-control-label" for="size-2">S</label>
+            <label class="custom-control-label" for="size-s">S</label>
           </div>
           <div class="custom-control custom-radio custom-control-inline">
             <input
+              [(ngModel)]="size"
               type="radio"
               class="custom-control-input"
-              id="size-3"
+              id="size-m"
               name="size"
+              value="M"
             />
-            <label class="custom-control-label" for="size-3">M</label>
+            <label class="custom-control-label" for="size-m">M</label>
           </div>
           <div class="custom-control custom-radio custom-control-inline">
             <input
+              [(ngModel)]="size"
               type="radio"
               class="custom-control-input"
-              id="size-4"
+              id="size-l"
               name="size"
+              value="L"
             />
-            <label class="custom-control-label" for="size-4">L</label>
+            <label class="custom-control-label" for="size-l">L</label>
           </div>
           <div class="custom-control custom-radio custom-control-inline">
             <input
+              [(ngModel)]="size"
               type="radio"
               class="custom-control-input"
-              id="size-5"
+              id="size-xl"
               name="size"
+              value="XL"
             />
-            <label class="custom-control-label" for="size-5">XL</label>
+            <label class="custom-control-label" for="size-xl">XL</label>
           </div>
         </form>
       </div>
+      <br />
       <div class="d-flex mb-4">
         <p class="text-dark font-weight-medium mb-0 mr-3">Màu sắc:</p>
         <form>
           <div class="custom-control custom-radio custom-control-inline">
             <input
+              [(ngModel)]="color"
+              value="Đen"
               type="radio"
               class="custom-control-input"
               id="color-1"
@@ -108,6 +145,8 @@
           </div>
           <div class="custom-control custom-radio custom-control-inline">
             <input
+              [(ngModel)]="color"
+              value="Trắng"
               type="radio"
               class="custom-control-input"
               id="color-2"
@@ -117,6 +156,8 @@
           </div>
           <div class="custom-control custom-radio custom-control-inline">
             <input
+              [(ngModel)]="color"
+              value="Đỏ"
               type="radio"
               class="custom-control-input"
               id="color-3"
@@ -126,6 +167,8 @@
           </div>
           <div class="custom-control custom-radio custom-control-inline">
             <input
+              [(ngModel)]="color"
+              value="xanh"
               type="radio"
               class="custom-control-input"
               id="color-4"
@@ -135,6 +178,8 @@
           </div>
           <div class="custom-control custom-radio custom-control-inline">
             <input
+              [(ngModel)]="color"
+              value="Xanh Lá"
               type="radio"
               class="custom-control-input"
               id="color-5"
@@ -144,28 +189,37 @@
           </div>
         </form>
       </div>
+      <br />
+      <br />
       <div class="d-flex align-items-center mb-4 pt-2">
         <div class="input-group quantity mr-3" style="width: 130px">
           <div class="input-group-btn">
-            <button class="btn btn-primary btn-minus">
+            <button (click)="minusQuantity()" class="btn btn-primary btn-minus">
               <i class="fa fa-minus"></i>
             </button>
           </div>
           <input
+            [(ngModel)]="quantity"
+            [ngModelOptions]="{ standalone: true }"
             type="text"
             class="form-control bg-secondary text-center"
-            value="1"
+            id="quantity"
+            name="quantity"
           />
           <div class="input-group-btn">
-            <button class="btn btn-primary btn-plus">
+            <button (click)="plusQuantity()" class="btn btn-primary btn-plus">
               <i class="fa fa-plus"></i>
             </button>
           </div>
         </div>
-        <button class="btn btn-primary px-3">
+        <button
+          (click)="addToCart(ProductArray['id'])"
+          class="btn btn-primary px-3"
+        >
           <i class="fa fa-shopping-cart mr-1"></i> Thêm giỏ hàng
         </button>
       </div>
+      <br />
       <div class="d-flex pt-2">
         <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
         <div class="d-inline-flex">
@@ -311,20 +365,20 @@
                     {{ comment["name"]
                     }}<small>
                       <br />
-                      <i>{{
-                        comment["created_at"].slice(0, 10) | uppercase
-                      }}</i></small
+                      <small>
+                        {{ comment["created_at"] | date : "d-M-yyyy h:mm a" }}
+                      </small></small
                     >
                   </h6>
                   <div
-                    class="text-primary mb-2 starss"
+                    class="text-warning mb-2"
                     id="content"
                     *ngIf="comment['rating'] == 1"
                   >
                     <i class="fas fa-star"></i>
                   </div>
                   <div
-                    class="text-primary mb-2 starss"
+                    class="text-warning mb-2"
                     id="content"
                     *ngIf="comment['rating'] == 2"
                   >
@@ -332,7 +386,7 @@
                     <i class="fas fa-star"></i>
                   </div>
                   <div
-                    class="text-primary mb-2 starss"
+                    class="text-warning mb-2"
                     id="content"
                     *ngIf="comment['rating'] == 3"
                   >
@@ -341,7 +395,7 @@
                     <i class="fas fa-star"></i>
                   </div>
                   <div
-                    class="text-primary mb-2 starss"
+                    class="text-warning mb-2"
                     id="content"
                     *ngIf="comment['rating'] == 4"
                   >
@@ -351,7 +405,7 @@
                     <i class="fas fa-star"></i>
                   </div>
                   <div
-                    class="text-primary mb-2 starss"
+                    class="text-warning mb-2"
                     id="content"
                     *ngIf="comment['rating'] == 5"
                   >
@@ -495,13 +549,10 @@
             class="card-footer d-flex justify-content-between bg-light border"
           >
             <a
+              style="margin-left: 100px"
               class="btn btn-sm text-dark p-0"
               (click)="productdetaills(show['id'])"
               ><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết</a
-            >
-            <a href="" class="btn btn-sm text-dark p-0"
-              ><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm giỏ
-              hàng</a
             >
           </div>
         </div>

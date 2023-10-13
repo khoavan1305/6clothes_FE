@@ -23,6 +23,7 @@
           <tr>
             <th>Hình ảnh</th>
             <th>Sản phẩm</th>
+            <th>Kích thước - Màu</th>
             <th>Giá</th>
             <th>Số lượng</th>
             <th>Thành tiền</th>
@@ -30,22 +31,31 @@
           </tr>
         </thead>
         <tbody class="align-middle">
-          <tr *ngFor="let item of items">
+          <tr *ngFor="let item of items; let i = index">
             <td>
               <img
                 src="./assets/img/{{ item.image }}"
                 alt=""
                 style="width: 50px"
               />
+              <br />
             </td>
-            <td class="align-middle">{{ item.name }}</td>
-            <td class="align-middle">
+            <td class="align-middle font-weight-bold">
+              {{ item.name | uppercase }}
+            </td>
+            <td class="align-middle font-weight-bold">
+              {{ item.size | uppercase }} | {{ item.color | uppercase }}
+            </td>
+            <td class="align-middle font-weight-bold">
               {{ item.price | currency : "VND" : "symbol" : "0.3-3" }}
             </td>
-            <td class="align-middle">
+            <td class="align-middle font-weight-bold">
               <div class="input-group quantity mx-auto" style="width: 100px">
                 <div class="input-group-btn">
-                  <button class="btn btn-sm btn-primary btn-minus">
+                  <button
+                    class="btn btn-sm btn-primary btn-minus"
+                    (click)="minusQuantity(i)"
+                  >
                     <i class="fa fa-minus"></i>
                   </button>
                 </div>
@@ -55,20 +65,26 @@
                   value="{{ item.quantity }}"
                 />
                 <div class="input-group-btn">
-                  <button class="btn btn-sm btn-primary btn-plus">
+                  <button
+                    class="btn btn-sm btn-primary btn-plus"
+                    (click)="plusQuantity(i)"
+                  >
                     <i class="fa fa-plus"></i>
                   </button>
                 </div>
               </div>
             </td>
-            <td class="align-middle">
+            <td class="align-middle font-weight-bold">
               {{
                 item.price * item.quantity
                   | currency : "VND" : "symbol" : "0.3-3"
               }}
             </td>
             <td class="align-middle">
-              <button class="btn btn-sm btn-primary">
+              <button
+                (click)="removeItemCart(i)"
+                class="btn btn-sm btn-primary"
+              >
                 <i class="fa fa-times"></i>
               </button>
             </td>
@@ -77,9 +93,11 @@
       </table>
     </div>
     <div class="col-lg-4">
-      <form class="mb-5" action="">
+      <form (ngSubmit)="saleCode()" class="mb-5" action="">
         <div class="input-group">
           <input
+            [(ngModel)]="salecode"
+            [ngModelOptions]="{ standalone: true }"
             type="text"
             class="form-control p-4"
             placeholder="Mã giảm giá"
@@ -96,17 +114,44 @@
         <div class="card-body">
           <div class="d-flex justify-content-between mb-3 pt-1">
             <h6 class="font-weight-medium">Tiền sản phẩm</h6>
-            <h6 class="font-weight-medium">2.000.000₫</h6>
+            <h6 class="font-weight-medium" *ngIf="sale == 0">
+              {{ total | currency : "VND" : "symbol" : "0.3-3" }}
+            </h6>
+            <h6 class="font-weight-medium" *ngIf="sale != 0">
+              {{ total | currency : "VND" : "symbol" : "0.3-3" }}
+            </h6>
+          </div>
+          <div class="d-flex justify-content-between">
+            <h6 class="font-weight-medium">Mã giảm giá</h6>
+            <h6 class="font-weight-medium" *ngIf="sale != 0">
+              {{ total / sale | currency : "VND" : "symbol" : "0.3-3" }}
+            </h6>
+            <h6 class="font-weight-medium" *ngIf="sale == 0">
+              {{ sale | currency : "VND" : "symbol" : "0.3-3" }}
+            </h6>
           </div>
           <div class="d-flex justify-content-between">
             <h6 class="font-weight-medium">Phí ship</h6>
-            <h6 class="font-weight-medium">10.000₫</h6>
+            <h6 class="font-weight-medium">
+              {{ ship | currency : "VND" : "symbol" : "0.3-3" }}
+            </h6>
           </div>
         </div>
         <div class="card-footer border-secondary bg-transparent">
-          <div class="d-flex justify-content-between mt-2">
+          <div class="d-flex justify-content-between mt-2" *ngIf="sale != 0">
             <h5 class="font-weight-bold">Tổng tiền</h5>
-            <h5 class="font-weight-bold">2.010.000₫</h5>
+            <h5 class="font-weight-bold">
+              {{
+                total - total / sale + ship
+                  | currency : "VND" : "symbol" : "0.3-3"
+              }}
+            </h5>
+          </div>
+          <div class="d-flex justify-content-between mt-2" *ngIf="sale == 0">
+            <h5 class="font-weight-bold">Tổng tiền</h5>
+            <h5 class="font-weight-bold">
+              {{ total + ship | currency : "VND" : "symbol" : "0.3-3" }}
+            </h5>
           </div>
           <button
             class="btn btn-block btn-primary my-3 py-3"

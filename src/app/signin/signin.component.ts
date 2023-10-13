@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Token } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signin',
@@ -18,7 +19,7 @@ export class SigninComponent implements OnInit{
   currentUserID = '';
 required: any;
 pattern: any;
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router,private toastr: ToastrService) {}
   // public exampleText: string = '';
   public ngOnInit(): void {
     if (this.token === null) {
@@ -38,17 +39,23 @@ pattern: any;
       .post('http://127.0.0.1:8000/api/login', bodyData)
       .subscribe((resultData: any) => {
         if (resultData['code'] === 409) {
-          alert('Email hoặc PassWord không Chính Xác');
-          this.email = '';
+          this.toastr.error("Email hoặc mật khẩu không chính xác",'',{
+            timeOut:2000,
+            progressBar:true
+          })
           this.password = '';
         } else {
           this.token = resultData['data']['token'];
           localStorage.setItem('token', this.token);
           localStorage.setItem('loggedUser', resultData['data']['name']);
           this.router.navigate(['/']);
-          window.location.reload();
-          alert('Đăng Nhập Thành Công');
-          // console.log(resultData['data']['name']);
+          this.toastr.success("Đăng nhập thành công",'',{
+            timeOut:1000,
+            progressBar:true
+          })
+          setTimeout(function(){
+            window.location.reload();
+         }, 1000);
         }
       });
   }

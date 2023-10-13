@@ -124,28 +124,6 @@
               </em>
             </div>
             <div class="col-md-6 form-group">
-              <label>Phường *</label>
-              <input
-                [(ngModel)]="phuong"
-                required
-                minlength="2"
-                maxlength="5"
-                name="phuong"
-                #loip="ngModel"
-                class="form-control"
-                type="text"
-                placeholder="Nhập phường"
-              />
-              <em
-                *ngIf="
-                  loip.errors?.['minlength'] || loip.errors?.['maxlength']
-                "
-                class="text-danger"
-              >
-                Phường phải từ 2 đến 5 ký tự
-              </em>
-            </div>
-            <div class="col-md-6 form-group">
               <label>Thành phố *</label>
               <input
                 [(ngModel)]="thanhpho"
@@ -168,26 +146,14 @@
               </em>
             </div>
             <div class="col-md-6 form-group">
-              <label>Quận, Huyện *</label>
-              <input
-                [(ngModel)]="quan"
-                required
-                minlength="2"
-                maxlength="5"
-                name="quan"
-                #loiq="ngModel"
-                class="form-control"
-                type="text"
-                placeholder="Nhập quận, huyện"
-              />
-              <em
-                *ngIf="
-                  loiq.errors?.['minlength'] || loiq.errors?.['maxlength']
-                "
-                class="text-danger"
-              >
-                Quận, huyện phải từ 2 đến 5 ký tự
-              </em>
+              <label>Ghi chú</label> <br />
+
+              <textarea
+                [(ngModel)]="ghichu"
+                [ngModelOptions]="{ standalone: true }"
+                cols="120"
+                rows="5"
+              ></textarea>
             </div>
           </div>
         </div>
@@ -196,32 +162,49 @@
     <div class="col-lg-4">
       <div class="card border-secondary mb-5">
         <div class="card-header bg-secondary border-0">
-          <h4 class="font-weight-semi-bold m-0">Tổng tiền</h4>
+          <h4 class="font-weight-semi-bold m-0">Thanh toán giỏ hàng</h4>
         </div>
         <div class="card-body">
-          <h5 class="font-weight-medium mb-3">Sản phẩm</h5>
-          <div
-            class="d-flex justify-content-between"
-            *ngFor="let item of items"
-          >
-            <p>{{ item.name }}</p>
-            <p>{{ item.price | currency : "VND" : "symbol" : "0.3-3" }}</p>
-          </div>
-
-          <hr class="mt-0" />
           <div class="d-flex justify-content-between mb-3 pt-1">
             <h6 class="font-weight-medium">Tiền sản phẩm</h6>
-            <h6 class="font-weight-medium">2.000.000₫</h6>
+            <h6 class="font-weight-medium" *ngIf="sale == 0">
+              {{ total | currency : "VND" : "symbol" : "0.3-3" }}
+            </h6>
+            <h6 class="font-weight-medium" *ngIf="sale != 0">
+              {{ total | currency : "VND" : "symbol" : "0.3-3" }}
+            </h6>
           </div>
           <div class="d-flex justify-content-between">
-            <h6 class="font-weight-medium">Phí vận chuyển</h6>
-            <h6 class="font-weight-medium">10.000₫</h6>
+            <h6 class="font-weight-medium">Mã giảm giá</h6>
+            <h6 class="font-weight-medium" *ngIf="sale != 0">
+              {{ total / sale | currency : "VND" : "symbol" : "0.3-3" }}
+            </h6>
+            <h6 class="font-weight-medium" *ngIf="sale == 0">
+              {{ sale | currency : "VND" : "symbol" : "0.3-3" }}
+            </h6>
+          </div>
+          <div class="d-flex justify-content-between">
+            <h6 class="font-weight-medium">Phí ship</h6>
+            <h6 class="font-weight-medium">
+              {{ ship | currency : "VND" : "symbol" : "0.3-3" }}
+            </h6>
           </div>
         </div>
         <div class="card-footer border-secondary bg-transparent">
-          <div class="d-flex justify-content-between mt-2">
+          <div class="d-flex justify-content-between mt-2" *ngIf="sale != 0">
             <h5 class="font-weight-bold">Tổng tiền</h5>
-            <h5 class="font-weight-bold">2.010.000₫</h5>
+            <h5 class="font-weight-bold">
+              {{
+                total - total / sale + ship
+                  | currency : "VND" : "symbol" : "0.3-3"
+              }}
+            </h5>
+          </div>
+          <div class="d-flex justify-content-between mt-2" *ngIf="sale == 0">
+            <h5 class="font-weight-bold">Tổng tiền</h5>
+            <h5 class="font-weight-bold">
+              {{ total + ship | currency : "VND" : "symbol" : "0.3-3" }}
+            </h5>
           </div>
         </div>
       </div>
@@ -236,7 +219,9 @@
                 type="radio"
                 class="custom-control-input"
                 name="payment"
-                id="paypal"
+                id="cod"
+                [(ngModel)]="pttt"
+                value="Thanh toán khi nhận hàng"
               />
               <label class="custom-control-label" for="cod"
                 >Tiền mặt (COD)</label
@@ -246,10 +231,12 @@
           <div class="">
             <div class="custom-control custom-radio">
               <input
+                [(ngModel)]="pttt"
                 type="radio"
                 class="custom-control-input"
                 name="payment"
-                id="banktransfer"
+                id="bank"
+                value="Chuyển khoản"
               />
               <label class="custom-control-label" for="bank"
                 >Chuyển khoản</label
@@ -260,6 +247,7 @@
         <div class="card-footer border-secondary bg-transparent">
           <button
             class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3"
+            (click)="order()"
           >
             Đặt hàng
           </button>

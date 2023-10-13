@@ -39,17 +39,30 @@
       </form>
     </div>
     <div class="col-lg-3 col-6 text-right">
-      <a href="" class="btn border border-dark">
+      <a
+        href=""
+        class="btn border border-dark"
+        data-toggle="modal"
+        data-target="#modalCart"
+      >
         <i class="fas fa-heart text-primary"></i>
-        <span class="badge">0</span>
+        <span class="badge">{{ productLikeArray.length }}</span>
       </a>
-      <a href="" class="btn border border-dark">
+      <a
+        href=""
+        class="btn border border-dark"
+        type="button"
+        data-toggle="modal"
+        data-target="#cartModal"
+      >
         <i class="fas fa-shopping-cart text-primary"></i>
-        <span class="badge">0</span>
+        <span class="badge" *ngIf="items">{{ items.length }}</span>
+        <span class="badge" *ngIf="items == null">0</span>
       </a>
     </div>
   </div>
 </div>
+
 <!-- Topbar End -->
 
 <!-- Navbar Start -->
@@ -301,3 +314,206 @@
 <a href="#" class="btn btn-primary back-to-top"
   ><i class="fa fa-angle-double-up"></i
 ></a>
+
+<!-- View cart-->
+<div
+  class="modal fade"
+  id="cartModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="exampleModalLabel">
+          <i class="fas fa-shopping-cart"></i> Giỏ Hàng
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-image">
+          <thead>
+            <tr>
+              <th class="text-center" scope="col">Hình ảnh</th>
+              <th class="text-center" scope="col">Sản phẩm</th>
+              <th class="text-center" scope="col">Giá</th>
+              <th class="text-center" scope="col">Số lượng</th>
+              <th class="text-center" scope="col">Tổng</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let item of items; let i = index">
+            <tr>
+              <td class="w-25">
+                <img
+                  src="./assets/img/{{ item.image }}"
+                  class="img-fluid img-thumbnail w-50"
+                  alt="Sheep"
+                  style="margin-left: 40px"
+                />
+              </td>
+              <td class="text-center align-middle">{{ item.name }}</td>
+              <td class="text-center align-middle">
+                {{ item.price | currency : "VND" : "symbol" : "0.3-3" }}
+              </td>
+              <td class="align-middle">
+                <div class="input-group quantity mx-auto" style="width: 100px">
+                  <div class="input-group-btn">
+                    <button
+                      class="btn btn-sm btn-primary btn-minus"
+                      (click)="minusQuantity(i)"
+                    >
+                      <i class="fa fa-minus"></i>
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm bg-secondary text-center"
+                    value="{{ item.quantity }}"
+                  />
+                  <div class="input-group-btn">
+                    <button
+                      class="btn btn-sm btn-primary btn-plus"
+                      (click)="plusQuantity(i)"
+                    >
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+              </td>
+              <td class="text-center align-middle">
+                {{
+                  item.price * item.quantity
+                    | currency : "VND" : "symbol" : "0.3-3"
+                }}
+              </td>
+              <td class="text-center align-middle">
+                <a
+                  href="#"
+                  class="btn btn-danger btn-sm"
+                  (click)="removeItemCart(i)"
+                >
+                  <i class="fa fa-times"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+          <h5>
+            Tổng Tiền:
+            <span class="price text-success">{{
+              total | currency : "VND" : "symbol" : "0.3-3"
+            }}</span>
+          </h5>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0 d-flex justify-content-between">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          <i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i>
+        </button>
+        <button
+          routerLink="/checkout"
+          data-dismiss="modal"
+          class="btn btn-success"
+        >
+          Thanh Toán
+          <i class="fa-solid fa-credit-card fa-bounce"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: likeproduct -->
+<div
+  class="modal fade"
+  id="modalCart"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">
+          Sản phẩm yêu thích
+          <i
+            class="fa-solid fa-heart fa-beat-fade fa-lg"
+            style="color: #e65042"
+          ></i>
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Hình ảnh</th>
+              <th>Sản phẩm</th>
+              <th>Giá</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let product of productLikeArray">
+            <tr>
+              <th class="w-25">
+                <img
+                  src="./assets/img/{{ product.image }}"
+                  class="img-fluid img-thumbnail w-75"
+                  alt="Sheep"
+                />
+              </th>
+              <td
+                (click)="productdetaill(product.product_id)"
+                class="text-center align-middle"
+              >
+                {{ product["name"] }}
+              </td>
+              <td class="text-center align-middle">
+                {{ product["price"] | currency : "VND" : "symbol" : "0.3-3" }}
+              </td>
+              <td class="text-center align-middle">
+                <button
+                  class="btn btn-outline-danger"
+                  (click)="removeLike(product.id)"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal: likeproduct -->

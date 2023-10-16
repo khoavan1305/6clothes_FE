@@ -1,73 +1,109 @@
-<div class="d-flex justify-content-center align-items-center bg-light vh-10">
-  <div class="bg-light p-3 rounded w-25">
-    <div class="brand text-center mb-3">
-      <a href="/"
-        ><img
-          class="w-50"
-          src="assets/img/logo_2.jpg"
-          style="border-radius: 100%"
-      /></a>
-    </div>
-    <h2 class="text-center text-primary">Đăng nhập</h2>
+<body class="bg-secondary">
+  <div class="container" style="font-size: larger">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+      <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+              <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                <img
+                  src="../../assets/img/logo_2.jpg"
+                  alt="login"
+                  width="100%"
+                  height="100%"
+                />
+              </div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1
+                      class="h2 text-gray-900 mb-4 font-weight-bold text-primary"
+                    >
+                      Đăng nhập
+                    </h1>
+                  </div>
+                  <form class="user">
+                    <div class="form-group">
+                      <input
+                        [(ngModel)]="email"
+                        [ngModelOptions]="{ standalone: true }"
+                        class="form-control"
+                        id="email"
+                        type="email"
+                        placeholder="Nhập Email"
+                        name="email"
+                        required
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                        #loiemail="ngModel"
+                        class="form-control rounded-0"
+                      />
 
-    <form #frm1="ngForm">
-      <div class="mb-3">
-        <label for="email"><strong>Email</strong></label>
-        <input
-          [(ngModel)]="email"
-          [ngModelOptions]="{ standalone: true }"
-          class="form-control"
-          id="email"
-          type="email"
-          placeholder="Nhập Email"
-          name="email"
-          required
-          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-          #loiemail="ngModel"
-          class="form-control rounded-0"
-        />
-
-        <em *ngIf="loiemail.errors?.['pattern']" class="text-danger">
-          Email không đúng định dạng, phải có @gmail.com <br />
-          Ví dụ: admin@gmail.com
-        </em>
-      </div>
-      <div class="mb-3">
-        <label for="password"><strong>Mật khẩu</strong></label>
-        <input
-          type="password"
-          [(ngModel)]="password"
-          [ngModelOptions]="{ standalone: true }"
-          class="form-control"
-          id="password"
-          placeholder="Nhập mật khẩu"
-          name="password"
-          required
-          minlength="8"
-          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-          #loipw="ngModel"
-        />
-        <div class="table">
-          <em *ngIf="loipw.errors?.['pattern']" class="text-danger">
-            Password phải có ít nhất 8 ký tự, trong đó có ít nhất 1 chữ hoa, 1
-            chữ thường và 1 số
-          </em>
+                      <em
+                        *ngIf="loiemail.errors?.['pattern']"
+                        class="text-danger"
+                      >
+                        Email không hợp lệ
+                      </em>
+                    </div>
+                    <div class="form-group">
+                      <input
+                        type="password"
+                        [(ngModel)]="password"
+                        [ngModelOptions]="{ standalone: true }"
+                        class="form-control"
+                        id="password"
+                        placeholder="Nhập mật khẩu"
+                        name="password"
+                        required
+                        minlength="8"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        #loipw="ngModel"
+                      />
+                      <em *ngIf="loipw.errors?.['pattern']" class="text-danger">
+                        <!-- cách viết alert trong html -->
+                        Mật khẩu phải có ít nhất 8 ký tự, trong đó có ít nhất 1
+                        chữ hoa, 1 chữ thường và 1 số
+                      </em>
+                    </div>
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox small">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input border border-primary"
+                          id="customCheck"
+                        />
+                        <label class="custom-control-label" for="customCheck"
+                          >Lưu mật khẩu</label
+                        >
+                      </div>
+                    </div>
+                    <a
+                      href="#"
+                      class="btn btn-primary btn-user btn-block"
+                      (click)="login()"
+                    >
+                      Đăng nhập
+                    </a>
+                    <hr />
+                  </form>
+                  <div class="text-center">
+                    <a class="text-primary" href="#" routerLink="/forgetpass"
+                      >Quên mật khẩu?</a
+                    >
+                  </div>
+                  <div class="text-center m-2">
+                    <a class="text-primary" href="#" routerLink="/signup"
+                      >Đăng ký ngay!</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="text-right">
-        <a routerLink="/forgetpass" class="small"> Bạn quên mật khẩu? </a>
-      </div>
-      <br />
-      <button class="btn btn-primary w-100 rounded-0" (click)="login()">
-        Đăng nhập
-      </button>
-      <p></p>
-      <button
-        class="btn btn-default border w-100 bg-secondary rounded-0"
-        routerLink="/signup"
-      >
-        Đăng ký?
-      </button>
-    </form>
+    </div>
   </div>
-</div>
+</body>

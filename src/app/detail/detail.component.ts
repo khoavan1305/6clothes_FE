@@ -33,6 +33,8 @@ export class DetailComponent implements OnInit {
     this.clickstar();
     this.getComment();
     this.getProduct();
+    this.itemss = localStorage.getItem('items');
+    this.items = JSON.parse(this.itemss);
 
   }
   productdetaill(){

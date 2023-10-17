@@ -15,63 +15,32 @@
             <th>Trạng thái</th>
             <th>Thành tiền</th>
             <th>Ngày mua hàng</th>
-            <th>Ngày giao hàng</th>
+            <th>Phương Thức Thanh Toán</th>
             <th>Hành động</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor="let order of orderArray; let i = index">
           <tr class="text-center">
-            <td>1</td>
-            <td>ASD229</td>
-            <td>Đang giao hàng</td>
-            <td>3 triệu 2</td>
-            <td>29-07-2000</td>
-            <td>29-07-2023</td>
+            <td>{{ i + 1 }}</td>
+            <td>#{{ order["id"] }}</td>
+            <td *ngIf="order['status'] == 0">Chưa xác nhận</td>
+            <td *ngIf="order['status'] == 1">Đã xác nhận</td>
+            <td *ngIf="order['status'] == 2">Đã hủy</td>
+            <td *ngIf="order['status'] == 3">Đang giao hàng</td>
+            <td *ngIf="order['status'] == 4">Giao hàng thành công</td>
             <td>
-              <button class="btn btn-primary" routerLink="/detail-checkout">Chi tiết</button>
-              <button class="btn btn-primary ml-2">Hủy</button>
+              {{ order["total"] | currency : "VND" : "symbol" : "0.3-3" }}
             </td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr class="text-center">
-            <td>1</td>
-            <td>ASD229</td>
-            <td>Đang giao hàng</td>
-            <td>3 triệu 2</td>
-            <td>29-07-2000</td>
-            <td>29-07-2023</td>
+            <td>{{ order["created_at"] | date : "d-M-yyyy h:mm a" }}</td>
+            <td>{{ order["pttt"] }}</td>
             <td>
-              <button class="btn btn-primary" routerLink="/detail-checkout">Chi tiết</button>
-              <button class="btn btn-primary ml-2">Hủy</button>
-            </td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr class="text-center">
-            <td>1</td>
-            <td>ASD229</td>
-            <td>Đang giao hàng</td>
-            <td>3 triệu 2</td>
-            <td>29-07-2000</td>
-            <td>29-07-2023</td>
-            <td>
-              <button class="btn btn-primary" routerLink="/detail-checkout">Chi tiết</button>
-              <button class="btn btn-primary ml-2">Hủy</button>
-            </td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr class="text-center">
-            <td>1</td>
-            <td>ASD229</td>
-            <td>Đang giao hàng</td>
-            <td>3 triệu 2</td>
-            <td>29-07-2000</td>
-            <td>29-07-2023</td>
-            <td>
-              <button class="btn btn-primary" routerLink="/detail-checkout">Chi tiết</button>
-              <button class="btn btn-primary ml-2">Hủy</button>
+              <button
+                class="btn btn-primary"
+                (click)="getOrderID(order['id'])"
+                routerLink="/detail-checkout"
+              >
+                Chi tiết
+              </button>
             </td>
           </tr>
         </tbody>

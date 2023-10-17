@@ -72,7 +72,7 @@ export class ShopComponent implements OnInit {
     this.http
       .get(this.urlApi + 'product?key=' + this.key)
       .subscribe((resultData: any) => {
-        this.ProductArray = resultData;
+        this.POSTS = resultData;
       });
   }
   nam: boolean = false;
@@ -82,13 +82,13 @@ export class ShopComponent implements OnInit {
       this.http
         .get(this.urlApi + 'product?key=nam')
         .subscribe((resultData: any) => {
-          this.ProductArray = resultData;
+          this.POSTS = resultData;
         });
     } else {
       this.http
         .get(this.urlApi + 'product?key=' + this.key)
         .subscribe((resultData: any) => {
-          this.ProductArray = resultData;
+          this.POSTS = resultData;
         });
     }
   }
@@ -97,21 +97,21 @@ export class ShopComponent implements OnInit {
       this.http
         .get(this.urlApi + 'product?featured=0')
         .subscribe((resultData: any) => {
-          this.ProductArray = resultData;
+          this.POSTS = resultData;
         });
     }
     if (featured == '1') {
       this.http
         .get(this.urlApi + 'product?featured=1')
         .subscribe((resultData: any) => {
-          this.ProductArray = resultData;
+          this.POSTS = resultData;
         });
     }
     if (featured == '2') {
       this.http
         .get(this.urlApi + 'product?featured=2')
         .subscribe((resultData: any) => {
-          this.ProductArray = resultData;
+          this.POSTS = resultData;
         });
     }
   }

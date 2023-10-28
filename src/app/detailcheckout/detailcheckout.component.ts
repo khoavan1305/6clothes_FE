@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./detailcheckout.component.css']
 })
 export class DetailcheckoutComponent implements OnInit {
-  urlApi: any = 'http://127.0.0.1:8000/api/';
+  urlApi: any = 'https://admin.6clothes.click/api/';
   orderID :any;
   orderdetaillArray :any[]=[];
   orderArray :any[]=[];
@@ -24,11 +24,6 @@ export class DetailcheckoutComponent implements OnInit {
     this.getOrderDetaill();
     this.getOrder();
   }
-  getOrderDetaill(){
-    this.http.get(this.urlApi + "order_detaill/" + this.orderID).subscribe((resultData :any)=>{
-      this.orderdetaillArray = resultData['data']
-    });
-  }
   getOrder(){
     this.http.get(this.urlApi + "getOrderID/" + this.orderID).subscribe((resultData :any)=>{
       this.orderArray = resultData['data'];
@@ -40,5 +35,11 @@ export class DetailcheckoutComponent implements OnInit {
       }
     });
   }
+  getOrderDetaill(){
+    this.http.get(this.urlApi + "order_detaill/" + this.orderID).subscribe((resultData :any)=>{
+      this.orderdetaillArray = resultData['data']
+    });
+  }
+  
 
 }

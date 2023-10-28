@@ -21,15 +21,13 @@ export class AppComponent implements OnInit {
   currentUserID = '';
   items: ICart[] = [];
   itemss:any;
-  urlApi :any = "http://127.0.0.1:8000/api/";
-
+  urlApi: any = 'https://admin.6clothes.click/api/';
   constructor(private http: HttpClient, private router: Router,private toastr: ToastrService) {
     this.token = localStorage.getItem("token");
     this.getOneUser();
     if(localStorage.getItem('items')){
       this.itemss= localStorage.getItem('items');
       this.items= JSON.parse(this.itemss);
-    
     }else{
       localStorage.setItem('items', JSON.stringify(this.items));
     }
@@ -100,7 +98,6 @@ export class AppComponent implements OnInit {
         window.location.reload();
      }, 1000);
     }else{
-      
     }
   }  
   total:number = 0;
@@ -136,6 +133,20 @@ export class AppComponent implements OnInit {
     }else{
       this.items[index].quantity--;
       localStorage.setItem("items",JSON.stringify(this.items));
+    }
+  }
+  search(index:any){
+    if(index === "Áo Nam"){
+      sessionStorage.setItem("search","Nam");
+      setTimeout(function(){
+        window.location.reload();
+     }, 1000);
+    }
+    if(index === "Áo Nữ"){
+      sessionStorage.setItem("search","Nữ");
+      setTimeout(function(){
+        window.location.reload();
+     }, 1000);
     }
   }
 }

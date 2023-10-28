@@ -270,10 +270,7 @@
                 <div class="d-flex justify-content-between mt-2">
                   <h5 class="font-weight-bold">Tổng tiền</h5>
                   <h5 class="font-weight-bold">
-                    {{
-                      order["total"] + ship
-                        | currency : "VND" : "symbol" : "0.3-3"
-                    }}
+                    {{ order["total"] | currency : "VND" : "symbol" : "0.3-3" }}
                   </h5>
                 </div>
               </div>

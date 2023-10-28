@@ -14,12 +14,10 @@ export class UserdetailComponent implements OnInit {
   user: any = "";
   token: any = '';
   currentUserID = "";
-
+  urlApi: any = 'https://admin.6clothes.click/api/';
   constructor(private http: HttpClient,private FormBuilder: FormBuilder, private router: Router,private toastr: ToastrService) {
     this.token = localStorage.getItem('token');
     this.userdetaill();
-    
-    
   }
   ngOnInit(): void { 
     if(this.token === null){
@@ -29,7 +27,7 @@ export class UserdetailComponent implements OnInit {
     }
   }
   userdetaill() {
-    this.http.get('http://127.0.0.1:8000/api/user/' + this.token)
+    this.http.get(this.urlApi + "user/" + this.token)
       .subscribe((resultData: any) => {
         this.user = resultData['data'];
       });
@@ -44,7 +42,7 @@ export class UserdetailComponent implements OnInit {
       "confirm_password": this.confirm_password,
       "id": this.user['id'],
     };
-    this.http.put("http://127.0.0.1:8000/api/updatepw/" + this.user['id'], bodyData).subscribe((resultData: any) => {
+    this.http.put(this.urlApi + "updatepw/" + this.user['id'], bodyData).subscribe((resultData: any) => {
       if (resultData["code"] === 401) {
         this.toastr.error(JSON.stringify(resultData['Message']),'',{
           timeOut:1000,
@@ -75,7 +73,7 @@ export class UserdetailComponent implements OnInit {
       "name": this.name,
       "id": this.user['id'],
     };
-    this.http.put("http://127.0.0.1:8000/api/updatettc/" + this.user['id'], bodyData).subscribe((resultData: any) => {
+    this.http.put(this.urlApi + "updatettc/" + this.user['id'], bodyData).subscribe((resultData: any) => {
       if (resultData["code"] === 409) {
         this.toastr.error(JSON.stringify(resultData['Message']),'',{
           timeOut:1000,
@@ -106,7 +104,7 @@ export class UserdetailComponent implements OnInit {
       "address": this.address,
       "id": this.user['id'],
     };
-    this.http.put("http://127.0.0.1:8000/api/updatettcn/" + this.user['id'], bodyData).subscribe((resultData: any) => {
+    this.http.put(this.urlApi + "updatettcn/" + this.user['id'], bodyData).subscribe((resultData: any) => {
       if (resultData["code"] === 409) {
         this.toastr.error(JSON.stringify(resultData['Message']),'',{
           timeOut:1000,
@@ -141,7 +139,7 @@ export class UserdetailComponent implements OnInit {
   changeAvatar(){
     const formData = new FormData();
     formData.append("images",this.files,this.files.name);
-    this.http.post("http://127.0.0.1:8000/api/changeAvatar/" + this.user['id'],formData)
+    this.http.post(this.urlApi + "changeAvatar/" + this.user['id'],formData)
     .subscribe((resultData: any) => {
       if(resultData['status'] = true){
           this.toastr.success(JSON.stringify(resultData['Message']),'',{

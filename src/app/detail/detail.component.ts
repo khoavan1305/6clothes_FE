@@ -16,7 +16,7 @@ export class DetailComponent implements OnInit {
   productdt: any = '';
   currentProductID = "";
   itemss:any;
-  urlApi :any = "http://127.0.0.1:8000/api/";
+  urlApi :any = "https://admin.6clothes.click/api/";
 
   constructor(private http: HttpClient, private router: Router,private toastr: ToastrService ) 
   {
@@ -65,6 +65,7 @@ export class DetailComponent implements OnInit {
   name: string = "";
   email: string = "";
   onSubmit(){
+    if(this.rating <= 5 || this.rating >= 1 && this.messages != null){
     let bodyData = {
       "messages": this.messages,
       "name": this.user['name'],
@@ -91,20 +92,27 @@ export class DetailComponent implements OnInit {
        }, 1000);
       }
     });
+  }else{
+    this.toastr.error(("Không để trống form nhập"),'',{
+      timeOut:2000,
+      progressBar:true
+    })
+  }
   }
   comments: any[] = [];
   avatars: any[] = [];
   review: any = 0;
   countcmt: any = 0;
+  
   getComment(){
     this.http.get(this.urlApi + 'product_comment/' + this.productdt).subscribe((resultData:any)=>{
     this.comments = resultData["data"];
-    console.log(this.comments[0]["created_at"])
     for (let i = 0; i < resultData["data"].length; i++) {
-      this.review += resultData["data"][i]['rating'];
+      this.review += Number(resultData["data"][i]['rating']) ;
       this.countcmt++;
     }
     let i = this.review / this.countcmt;
+    console.log(this.review);
     this.review = Math.ceil(i)
     });
   }

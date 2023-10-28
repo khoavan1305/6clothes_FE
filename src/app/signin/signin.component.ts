@@ -20,7 +20,7 @@ export class SigninComponent implements OnInit{
 required: any;
 pattern: any;
   constructor(private http: HttpClient, private router: Router,private toastr: ToastrService) {}
-  // public exampleText: string = '';
+  urlApi: any = 'https://admin.6clothes.click/api/';
   public ngOnInit(): void {
     if (this.token === null) {
       this.router.navigate(['/login']);
@@ -36,7 +36,7 @@ pattern: any;
       password: this.password,
     };
     this.http
-      .post('http://127.0.0.1:8000/api/login', bodyData)
+      .post(this.urlApi + "login", bodyData)
       .subscribe((resultData: any) => {
         if (resultData['code'] === 409) {
           this.toastr.error("Email hoặc mật khẩu không chính xác",'',{

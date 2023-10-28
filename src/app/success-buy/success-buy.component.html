@@ -17,19 +17,34 @@
         <div class="card-body">
           <h5 class="card-title">Đơn hàng của bạn đã được đặt thành công</h5>
           <p class="card-text">
-            Mã đơn hàng của bạn: <span class="text-primary">123456</span>
+            Mã đơn hàng của bạn:
+            <span class="text-primary"># {{ order["id"] }}</span>
           </p>
           <p class="card-text">
-            Ngày đặt hàng: <span class="text-primary">01/01/2021</span>
+            Ngày đặt hàng:
+            <span class="text-primary">
+              {{ order["created_at"] | date : "d-M-yyyy h:mm a" }}
+            </span>
           </p>
-          <p class="card-text">
-            Ngày giao hàng dự kiến: <span class="text-primary">03/01/2021</span>
+          <p class="card-text" *ngIf="order['status'] == 0">
+            Tình trạng: <span class="text-primary">Chưa xác nhận</span>
           </p>
-          <a href="#" routerLink="/" class="btn btn-primary">Quay lại trang chủ</a>
-          <a href="#" routerLink="/detail-checkout" class="btn btn-primary ml-3">
+          <p class="card-text" *ngIf="order['status'] == 1">
+            Tình trạng: <span class="text-primary">Đã xác nhận</span>
+          </p>
+          <p class="card-text" *ngIf="order['status'] == 2">
+            Tình trạng: <span class="text-primary">Đã thanh toán</span>
+          </p>
+          <a routerLink="/" class="btn btn-primary">Quay lại trang chủ</a>
+          <a
+            (click)="getOrderID(order['id'])"
+            routerLink="/detail-checkout"
+            class="btn btn-primary ml-3"
+          >
             Xem chi tiết đơn hàng
           </a>
         </div>
       </div>
     </div>
   </div>
+</div>

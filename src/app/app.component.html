@@ -112,7 +112,11 @@
                   Thời trang Nam
                 </a>
                 <div class="dropdown-menu rounded-0 m-0">
-                  <a href="#" routerLink="/shop" class="dropdown-item"
+                  <a
+                    href="#"
+                    (click)="search('Áo Nam')"
+                    routerLink="/shop"
+                    class="dropdown-item"
                     >Áo Nam</a
                   >
                   <a href="#" routerLink="/shop" class="dropdown-item"
@@ -130,7 +134,12 @@
                   Thời trang Nữ
                 </a>
                 <div class="dropdown-menu rounded-0 m-0">
-                  <a href="#" routerLink="/shop" class="dropdown-item">Áo Nữ</a>
+                  <a
+                    (click)="search('Áo Nữ')"
+                    routerLink="/shop"
+                    class="dropdown-item"
+                    >Áo Nữ</a
+                  >
                   <a href="#" routerLink="/shop" class="dropdown-item"
                     >Quần Nữ</a
                   >

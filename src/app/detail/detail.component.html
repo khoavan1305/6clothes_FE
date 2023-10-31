@@ -220,23 +220,6 @@
         </button>
       </div>
       <br />
-      <div class="d-flex pt-2">
-        <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
-        <div class="d-inline-flex">
-          <a class="text-dark px-2" href="">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a class="text-dark px-2" href="">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a class="text-dark px-2" href="">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a class="text-dark px-2" href="">
-            <i class="fab fa-pinterest"></i>
-          </a>
-        </div>
-      </div>
     </div>
   </div>
   <div class="row px-xl-5">
@@ -255,7 +238,7 @@
       <div class="tab-content">
         <div class="tab-pane fade show active" id="tab-pane-1">
           <h4 class="mb-3">Mô tả sản phẩm</h4>
-          <table class="table table-bordered text-center">
+          <table class="table table-bordered text-left">
             <tbody>
               <tr>
                 <th scope="row" style="border-color: black">Tên sản phẩm</th>
@@ -283,12 +266,10 @@
 
           <h4>Hướng dẫn bảo quản</h4>
 
-          <table
-            class="table table-bordered text-center table-bordered-primary"
-          >
+          <table class="table table-bordered text-left table-bordered-primary">
             <tbody>
               <tr>
-                <th scope="row" style="padding-top: 5%; border-color: black">
+                <th scope="row" style="padding-top: 7%; border-color: black">
                   Hướng dẫn bảo quản
                 </th>
                 <td class="text-left" style="border-color: black">
@@ -350,7 +331,7 @@
           <div class="row">
             <div class="col-md-6">
               <h4 class="mb-4">
-                {{ comments.length }} Đánh giá cho sản phẩm
+                Có {{ comments.length }} đánh giá cho sản phẩm
                 {{ ProductArray["name"] | uppercase }}
               </h4>
               <div class="media mb-4" *ngFor="let comment of comments">
@@ -361,7 +342,7 @@
                   style="width: 45px"
                 />
                 <div class="media-body">
-                  <h6>
+                  <h4>
                     {{ comment["name"]
                     }}<small>
                       <br />
@@ -369,7 +350,7 @@
                         {{ comment["created_at"] | date : "d-M-yyyy h:mm a" }}
                       </small></small
                     >
-                  </h6>
+                  </h4>
                   <div
                     class="text-warning mb-2"
                     id="content"
@@ -415,17 +396,21 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                   </div>
-                  <p>
+                  <p style="font-size: smaller">
                     {{ comment["messages"] }}
                   </p>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
-              <h4 class="mb-4">Để lại đánh giá</h4>
               <div class="d-flex my-3"></div>
               <form>
-                <div class="rating-box">
+                <div
+                  class="form-group d-flex align-items-center mb-4 pb-1 border-bottom"
+                >
+                  <label for="rating" class="mr-3 mb-0" style="font-weight: 700"
+                    >Đánh giá * :</label
+                  >
                   <div class="stars pointer">
                     <i
                       (click)="clickstar()"
@@ -452,7 +437,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="message">Đánh giá *</label>
+                  <label for="message" style="font-weight: 700"
+                    >Nội dung đánh giá *</label
+                  >
                   <textarea
                     [(ngModel)]="messages"
                     [ngModelOptions]="{ standalone: true }"
@@ -460,10 +447,11 @@
                     cols="30"
                     rows="5"
                     class="form-control"
+                    style="background-color: aliceblue"
                   ></textarea>
                 </div>
                 <div class="form-group">
-                  <label for="name">Tên *</label>
+                  <label for="name" style="font-weight: 700">Tên *</label>
                   <input
                     [(ngModel)]="name"
                     [ngModelOptions]="{ standalone: false }"
@@ -471,11 +459,11 @@
                     class="form-control"
                     id="name"
                     value="{{ user['name'] }}"
-                    disabled
+                    style="background-color: aliceblue"
                   />
                 </div>
                 <div class="form-group">
-                  <label for="email">Email *</label>
+                  <label for="email" style="font-weight: 700">Email *</label>
                   <input
                     value="{{ user['email'] }}"
                     [ngModelOptions]="{ standalone: false }"
@@ -483,7 +471,7 @@
                     type="email"
                     class="form-control"
                     id="email"
-                    disabled
+                    style="background-color: aliceblue;"
                   />
                 </div>
                 <div class="form-group mb-0" *ngIf="token == null">
@@ -495,7 +483,11 @@
                     Gừi đánh giá
                   </button>
                 </div>
-                <div class="form-group mb-0" *ngIf="token != null">
+                <div
+                  class="form-group mb-0"
+                  style="margin-left: 40%; margin-top: 5%"
+                  *ngIf="token != null"
+                >
                   <button
                     (click)="onSubmit()"
                     value="Để lại đánh giá"

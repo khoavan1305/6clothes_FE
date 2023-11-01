@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./for-get-password.component.css']
 })
 export class ForGetPasswordComponent implements OnInit  {
+  urlApi: any = 'https://admin.6clothes.click/api/';
   constructor(private  http: HttpClient,private fbuilder:FormBuilder, private router: Router){
 
   } 
@@ -19,7 +20,7 @@ export class ForGetPasswordComponent implements OnInit  {
     let bodyData = {
       "email" : this.email, 
     }
-    this.http.post('http://127.0.0.1:8000/api/forGetPassword',bodyData).subscribe((resulData:any)=>{
+    this.http.post(this.urlApi + "forGetPassword",bodyData).subscribe((resulData:any)=>{
       if(resulData["code"] === 409){
         alert(resulData["data"]["email"]);
       }

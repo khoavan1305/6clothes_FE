@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./get-pass.component.css']
 })
 export class GetPassComponent implements OnInit {
+  urlApi: any = 'https://admin.6clothes.click/api/';
   constructor(private  http: HttpClient,private fbuilder:FormBuilder, private router: Router){
   } 
   ngOnInit(): void {
@@ -21,7 +22,7 @@ export class GetPassComponent implements OnInit {
       "new_password" : this.new_password, 
       "new_password_confirm" : this.new_password_confirm, 
     }
-    this.http.post('http://127.0.0.1:8000/api/getPassword',bodyData).subscribe((resulData:any)=>{
+    this.http.post(this.urlApi + "getPassword",bodyData).subscribe((resulData:any)=>{
       console.log(resulData);
       if(resulData["code"] === 409){
         alert(resulData["message"]);

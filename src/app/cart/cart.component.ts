@@ -4,8 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICart } from '../icart';
 import { ToastrService } from 'ngx-toastr';
-
-
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',

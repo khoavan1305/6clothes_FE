@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { NgxPaginationModule } from 'ngx-pagination';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -25,6 +23,7 @@ import { IntroduceComponent } from './introduce/introduce.component';
 import { HistoryBuyComponent } from './history-buy/history-buy.component';
 import { SuccessBuyComponent } from './success-buy/success-buy.component';
 import { DetailcheckoutComponent } from './detailcheckout/detailcheckout.component';
+import { HashLocationStrategy,LocationStrategy } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -56,7 +55,7 @@ import { DetailcheckoutComponent } from './detailcheckout/detailcheckout.compone
     BrowserAnimationsModule,
     NgxPaginationModule,
   ],
-  providers: [],
+  providers: [{provide:LocationStrategy,useClass:HashLocationStrategy}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

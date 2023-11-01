@@ -56,50 +56,6 @@
                         </em>
                       </div>
                     </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input
-                          type="text"
-                          [(ngModel)]="address"
-                          [ngModelOptions]="{ standalone: true }"
-                          placeholder="Nhập địa chỉ"
-                          class="form-control rounded-0"
-                          required
-                          minlength="3"
-                          #loidiachi="ngModel"
-                        />
-
-                        <em
-                          *ngIf="loidiachi.errors?.['minlength']"
-                          class="text-danger"
-                        >
-                          Địa chỉ không để trống và ít nhất 3 kí tự!
-                        </em>
-                      </div>
-                      <div class="col-sm-6">
-                        <div>
-                          <input
-                            type="text"
-                            [(ngModel)]="phone"
-                            [ngModelOptions]="{ standalone: true }"
-                            placeholder="Nhập số điện thoại"
-                            class="form-control rounded-0"
-                            required
-                            minlength="10"
-                            #loisdt="ngModel"
-                          />
-
-                          <em
-                            *ngIf="loisdt.errors?.['minlength']"
-                            class="text-danger"
-                          >
-                            Số điện thoại không để trống và ít nhất 10 kí tự!
-                          </em>
-                        </div>
-                      </div>
-                    </div>
-
                     <div class="form-group row">
                       <div class="col-sm-6 mb-3 mb-sm-0">
                         <input
@@ -145,7 +101,6 @@
                       </div>
                     </div>
                     <a
-                      href="login.html"
                       class="btn btn-primary btn-user btn-block"
                       (click)="save()"
                     >
@@ -156,7 +111,7 @@
                   <div class="text-center">
                     <h6>
                       Bạn đã có tài khoản rồi ?
-                      <a href="#" class="text-primary" routerLink="/signin"
+                      <a class="text-primary" routerLink="/signin"
                         >Đăng nhập ngay!</a
                       >
                     </h6>

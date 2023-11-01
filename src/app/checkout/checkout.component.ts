@@ -27,7 +27,7 @@ export class CheckoutComponent implements OnInit {
   sale:any ;
   userID:any;
   tokenUser:any;
-  urlApi :any = "http://127.0.0.1:8000/api/";
+  urlApi :any = "https://admin.6clothes.click/api/";
   constructor(private http: HttpClient, private router: Router,private toastr: ToastrService) {
     this.itemss = localStorage.getItem('items');
     this.items = JSON.parse(this.itemss);
@@ -72,15 +72,15 @@ export class CheckoutComponent implements OnInit {
       "user_id":  this.userID ,
       "array" : this.items,
     };
-    this.http.post("http://127.0.0.1:8000/api/order",bodyData).subscribe((resultData: any)=>
+    this.http.post(this.urlApi + "order",bodyData).subscribe((resultData: any)=>
     {
       if (resultData['code'] === 200) {
         this.toastr.success("Đặt hàng thành công! Bạn cần kiểm tra E-mail để xác nhận đơn hàng trong 24h",'',{
           timeOut:5000,
           progressBar:true
         })
-      localStorage.removeItem("items");
-        this.router.navigate(['cart']);
+        localStorage.removeItem("items");
+        this.router.navigate(['success']);
         setTimeout(function(){
           window.location.reload();
        }, 5000);

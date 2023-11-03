@@ -74,7 +74,7 @@
   <!-- Topbar End -->
 
   <!-- Navbar Start -->
-  <div class="container-fluid mb-2">
+  <div class="container-fluid">
     <div class="row border-top px-xl-5">
       <div class="col-lg-12">
         <nav
@@ -100,7 +100,21 @@
             id="navbarCollapse"
           >
             <div class="navbar-nav mr-auto py-0">
-              <a href="#" class="nav-item nav-link" routerLink="/">Trang chủ</a>
+              <a
+                class="nav-item nav-link"
+                style="
+                  border-right: 1px solid #d4dcf9;
+                  height: 1px;
+                  display: flex;
+                  justify-items: center;
+                  justify-content: center;
+                  align-items: center;
+                  position: relative;
+                  top: 15px;
+                "
+                routerLink="/"
+                >Trang chủ
+              </a>
 
               <div class="nav-item dropdown">
                 <a
@@ -108,6 +122,16 @@
                   class="nav-link dropdown-toggle"
                   data-toggle="dropdown"
                   routerLink="/shop"
+                  style="
+                    border-right: 1px solid #d4dcf9;
+                    height: 1px;
+                    display: flex;
+                    justify-items: center;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    top: 15px;
+                  "
                 >
                   Thời trang Nam
                 </a>
@@ -130,6 +154,16 @@
                   class="nav-link dropdown-toggle"
                   data-toggle="dropdown"
                   routerLink="/shop"
+                  style="
+                    border-right: 1px solid #d4dcf9;
+                    height: 1px;
+                    display: flex;
+                    justify-items: center;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    top: 15px;
+                  "
                 >
                   Thời trang Nữ
                 </a>
@@ -146,19 +180,84 @@
                 </div>
               </div>
 
-              <a href="#" class="nav-item nav-link" routerLink="/shop"
+              <a
+                href="#"
+                class="nav-item nav-link"
+                style="
+                  border-right: 1px solid #d4dcf9;
+                  height: 1px;
+                  display: flex;
+                  justify-items: center;
+                  justify-content: center;
+                  align-items: center;
+                  position: relative;
+                  top: 15px;
+                "
+                routerLink="/shop"
                 >Quần Jeans</a
               >
-              <a href="#" class="nav-item nav-link" routerLink="/shop"
+              <a
+                href="#"
+                class="nav-item nav-link"
+                style="
+                  border-right: 1px solid #d4dcf9;
+                  height: 1px;
+                  display: flex;
+                  justify-items: center;
+                  justify-content: center;
+                  align-items: center;
+                  position: relative;
+                  top: 15px;
+                "
+                routerLink="/shop"
                 >Áo khoác</a
               >
-              <a href="#" class="nav-item nav-link" routerLink="/cart"
+              <a
+                href="#"
+                class="nav-item nav-link"
+                style="
+                  border-right: 1px solid #d4dcf9;
+                  height: 1px;
+                  display: flex;
+                  justify-items: center;
+                  justify-content: center;
+                  align-items: center;
+                  position: relative;
+                  top: 15px;
+                "
+                routerLink="/cart"
                 >Giỏ hàng</a
               >
-              <a href="#" class="nav-item nav-link" routerLink="/checkout"
+              <a
+                href="#"
+                class="nav-item nav-link"
+                style="
+                  border-right: 1px solid #d4dcf9;
+                  height: 1px;
+                  display: flex;
+                  justify-items: center;
+                  justify-content: center;
+                  align-items: center;
+                  position: relative;
+                  top: 15px;
+                "
+                routerLink="/checkout"
                 >Thanh toán</a
               >
-              <a href="#" class="nav-item nav-link" routerLink="/introduce"
+              <a
+                href="#"
+                class="nav-item nav-link"
+                style="
+                  border-right: 1px solid #d4dcf9;
+                  height: 1px;
+                  display: flex;
+                  justify-items: center;
+                  justify-content: center;
+                  align-items: center;
+                  position: relative;
+                  top: 15px;
+                "
+                routerLink="/introduce"
                 >Giới thiệu</a
               >
               <a href="#" class="nav-item nav-link" routerLink="/contact"
@@ -198,11 +297,9 @@
     </div>
   </div>
   <!-- Navbar End -->
-
   <article>
     <router-outlet></router-outlet>
   </article>
-
   <!-- Footer Start -->
   <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
     <div class="row px-xl-5 pt-5">
@@ -413,7 +510,7 @@
             Sản phẩm yêu thích
             <i
               class="fa-solid fa-heart fa-beat-fade fa-lg"
-              style="color: #e65042"
+              style="color: #d4dcf9"
             ></i>
           </h4>
           <button

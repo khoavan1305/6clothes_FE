@@ -18,7 +18,6 @@ import { ToastrService } from 'ngx-toastr';
 export class SignupComponent implements OnInit {
   submitted = false;
   token: any;
-
   constructor(
     private http: HttpClient,
     private fbuilder: FormBuilder,
@@ -38,19 +37,9 @@ export class SignupComponent implements OnInit {
   password: string = '';
   password_confirm: string = '';
   currentUserID = '';
-  // Alluser()
-  // {
-  //   this.http.get("http://127.0.0.1:8000/api/user")
-
-  //   .subscribe((resultData: any)=>
-  //   {
-  //       this.UserArray = resultData;
-
-  //   });
-  // }
+  urlApi: any = 'https://admin.6clothes.click/api/';
   register() {
     this.submitted = true;
-
     let bodyData = {
       name: this.name,
       email: this.email,
@@ -58,7 +47,7 @@ export class SignupComponent implements OnInit {
       password_confirm: this.password_confirm,
     };
     this.http
-      .post('http://127.0.0.1:8000/api/user', bodyData)
+      .post(this.urlApi + "user", bodyData)
       .subscribe((resultData: any) => {
         if (resultData['code'] === 401) {
           this.toastr.error(JSON.stringify(resultData['messeage']), '', {

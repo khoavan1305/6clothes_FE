@@ -7,16 +7,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./history-buy.component.css']
 })
 export class HistoryBuyComponent  implements OnInit {
-  urlApi: any = 'http://127.0.0.1:8000/api/';
+   urlApi: any = 'https://admin.6clothes.click/api/';
   orderArray: any[] = [];
   user_id:any;
   constructor(    
     private http: HttpClient,
     private router: Router,)
     {
+    this.getuserID();
     }
   ngOnInit(): void {
-    this.getuserID();
   }
   getuserID(){
     this.http.get(this.urlApi + 'user/' + localStorage.getItem('token')).subscribe((resultData: any) => {

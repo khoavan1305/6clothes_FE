@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICart } from '../icart';
 import { ToastrService } from 'ngx-toastr';
-
 import { PaginationService } from '../pagination.service';
 
 @Component({
@@ -25,7 +24,7 @@ export class ShopComponent implements OnInit {
   tableSizes = [3, 6, 9, 12];
 
   itemss: any;
-  urlApi: any = 'http://127.0.0.1:8000/api/';
+  urlApi: any = 'https://admin.6clothes.click/api/';
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -40,9 +39,11 @@ export class ShopComponent implements OnInit {
     this.items = JSON.parse(this.itemss);
     this.token = localStorage.getItem('token');
     this.getOneUser();
+    this.searchP("0");
   }
   ngOnInit(): void {
     this.postList();
+    this.searchfillter(sessionStorage.getItem('search'));
   }
 
   postList(): void {
@@ -71,6 +72,13 @@ export class ShopComponent implements OnInit {
   search() {
     this.http
       .get(this.urlApi + 'product?key=' + this.key)
+      .subscribe((resultData: any) => {
+        this.POSTS = resultData;
+      });
+  }
+  searchfillter(index:any) {
+    this.http
+      .get(this.urlApi + 'product?key=' + index)
       .subscribe((resultData: any) => {
         this.POSTS = resultData;
       });

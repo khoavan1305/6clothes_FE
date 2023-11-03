@@ -11,6 +11,7 @@ import { ICart } from '../icart';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit  {
+  urlApi: any = 'https://admin.6clothes.click/api/';
   ProductArray: any[] = [];
   NewP : any[] = [];
   HotP : any[] = [];
@@ -29,7 +30,7 @@ export class HomeComponent implements OnInit  {
   }
   getNewP()
   { 
-    this.http.get("http://127.0.0.1:8000/api/NewP")
+    this.http.get(this.urlApi + "NewP")
     .subscribe((resultData: any)=>
     {
         this.NewP = resultData;
@@ -37,7 +38,7 @@ export class HomeComponent implements OnInit  {
   }
   getHotP()
   { 
-    this.http.get("http://127.0.0.1:8000/api/HotP")
+    this.http.get(this.urlApi + "HotP")
     .subscribe((resultData: any)=>
     {
         this.HotP = resultData;
@@ -45,7 +46,7 @@ export class HomeComponent implements OnInit  {
   }
   productdetaill(id: string) {
     this.http
-      .get('http://127.0.0.1:8000/api/product/' + id)
+      .get(this.urlApi + "product/" + id)
       .subscribe((resultData: any) => {
         this.ProductArray = resultData;
         localStorage.setItem('productdt', resultData['data']['id']);
@@ -53,12 +54,9 @@ export class HomeComponent implements OnInit  {
       });
   }
   items: ICart[] = [];
-
   addToCart(id: string) {
-    // this.getItems();
-    // console.log(this.getItems());  
     this.http
-      .get('http://127.0.0.1:8000/api/product/' + id)
+      .get(this.urlApi + "product/" + id)
       .subscribe((resultData: any) => {
         var index = this.items.findIndex(
           (item) => item.id == resultData['data']['id']
@@ -77,14 +75,8 @@ export class HomeComponent implements OnInit  {
             quantity: 1,
           };
           this.items.push(c);
-          // console.log(  this.items);
         }
-        // if(sessionStorage.getItem('items') !== null){
-        //   sessionStorage.setItem('items',JSON.stringify( this.items ));
-        // }else{
         localStorage.setItem('items', JSON.stringify(this.items));
-        // }
-
       });
   }
   getItems() {

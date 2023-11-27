@@ -51,7 +51,7 @@
                 [(ngModel)]="ho"
                 required
                 minlength="2"
-                maxlength="5"
+                maxlength="10"
                 name="ho"
                 #loiho="ngModel"
                 class="form-control"
@@ -64,7 +64,7 @@
                 "
                 class="text-danger"
               >
-                Họ phải từ 2 đến 5 ký tự
+                Họ phải từ 2 đến 10 ký tự
               </em>
             </div>
             <div class="col-md-6 form-group">
@@ -80,8 +80,8 @@
                 placeholder="Nhập email"
               />
               <em *ngIf="loiemail.errors?.['pattern']" class="text-danger">
-                Email không đúng định dạng, phải có @gmail.com <br />
-                Ví dụ: admin@gmail.com
+                Email không đúng định dạng, phải có &#64;gmail.com <br />
+                Ví dụ: admin&#64;gmail.com
               </em>
             </div>
             <div class="col-md-6 form-group">

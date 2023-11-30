@@ -170,12 +170,12 @@ export class ShopComponent implements OnInit {
           if (index >= 0 && this.items[index].size == this.size) {
             this.items[index].quantity++;
             this.toastr.success('Thêm sản phẩm thành công', '', {
-              timeOut: 1000,
+              timeOut: 2000,
               progressBar: true,
             });
             setTimeout(function () {
               window.location.reload();
-            }, 1000);
+            }, 2000);
           } else {
             var c: ICart;
             c = {
@@ -189,12 +189,12 @@ export class ShopComponent implements OnInit {
             };
             this.items.push(c);
             this.toastr.success('Thêm sản phẩm thành công', '', {
-              timeOut: 1000,
+              timeOut: 2000,
               progressBar: true,
             });
             setTimeout(function () {
               window.location.reload();
-            }, 1000);
+            }, 2000);
           }
           localStorage.setItem('items', JSON.stringify(this.items));
         });
